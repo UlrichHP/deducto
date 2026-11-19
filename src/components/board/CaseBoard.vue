@@ -180,7 +180,7 @@ const isLifted = (kind: CardKind, card: number) =>
 <template>
   <section class="board" @pointermove="onPointerMove" @pointerup="onPointerUp" @pointercancel="endDrag">
     <h2 class="section-title">
-      {{ t('board.title') }} <small>{{ t('board.points', { points: BOARD_POINTS }) }}</small>
+      {{ t('board.title') }} <span class="points-badge">{{ t('board.points', { points: BOARD_POINTS }) }}</span>
     </h2>
     <p class="hint">{{ t('board.hint') }}</p>
 

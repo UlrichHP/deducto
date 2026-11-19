@@ -1293,3 +1293,19 @@ button {
   font-size: 0.85rem;
   color: var(--muted);
 }
+
+/* Small pill next to a section title, e.g. what the case board is worth */
+.points-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgb(224 176 74 / 0.15);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  vertical-align: 0.1em;
+  color: var(--accent);
+}
