@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Flame, UserRound } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { currentStreak, rankInfo } from '../progress/progress'
@@ -26,9 +27,16 @@ const dailyLabel = computed(() =>
 <template>
   <main class="menu">
     <div class="menu-top">
-      <button class="btn btn-small profile-btn" @click="emit('profile')">
-        <span>{{ t('ui.profile') }}</span>
-        <span class="profile-meta">{{ t(`ranks.${rank}`) }}<template v-if="streak"> · {{ streak }}🔥</template></span>
+      <button
+        class="profile-btn"
+        :aria-label="`${t('ui.profile')} · ${t(`ranks.${rank}`)}`"
+        @click="emit('profile')"
+      >
+        <span class="profile-avatar" aria-hidden="true"><UserRound :size="18" :stroke-width="2" /></span>
+        <span class="profile-rank" aria-hidden="true">{{ t(`ranks.${rank}`) }}</span>
+        <span v-if="streak" class="profile-streak" aria-hidden="true">
+          <Flame :size="15" :stroke-width="2.2" />{{ streak }}
+        </span>
       </button>
       <div class="toolbar">
         <SettingsButton />
