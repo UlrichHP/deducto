@@ -333,13 +333,13 @@ button {
   padding: 0;
 }
 .cell {
-  display: block;
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 52px;
   border: 0;
   border-radius: 8px;
   background: var(--panel);
-  font-size: 1.3rem;
   cursor: pointer;
   transition: background 0.1s;
 }
@@ -1244,4 +1244,19 @@ button {
 }
 .board-tray[data-tray='item'] {
   min-height: 80px;
+}
+
+/* Notebook column headers run vertically so long names fit narrow columns. */
+.grid thead th[scope='col'] {
+  height: 92px;
+  padding: 0 0 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  vertical-align: bottom;
+}
+.grid thead th[scope='col'] > span {
+  display: inline-block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }

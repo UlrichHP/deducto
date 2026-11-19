@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ArrowLeft } from 'lucide-vue-next'
 import AchievementItem from './AchievementItem.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -58,7 +59,10 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
 <template>
   <main class="profile">
     <header class="screen-header">
-      <button class="btn btn-small" @click="emit('back')">← {{ t('ui.back') }}</button>
+      <button class="btn btn-small btn-icon" @click="emit('back')">
+        <ArrowLeft :size="18" aria-hidden="true" />
+        {{ t('ui.back') }}
+      </button>
       <SettingsButton />
     </header>
 

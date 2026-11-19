@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { Circle, X } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useCaseSession } from '../composables/caseSession'
-import { emptyMarks, cycleMark, type GridId, type Mark } from '../game/notebook'
+import { cycleMark, emptyMarks, NO, YES, type GridId, type Mark } from '../game/notebook'
 import type { Case } from '../game/types'
 import { itemText, roomText, suspectName } from '../i18n/caseText'
 
-const SYMBOLS = ['', '✕', '●'] as const
 const MARK_KEYS = ['empty', 'no', 'yes'] as const
 
 const props = defineProps<{ game: Case }>()
@@ -42,7 +42,7 @@ function reset() {
         <thead>
           <tr>
             <th class="corner" />
-            <th v-for="label in grid.columns" :key="label" scope="col">{{ label }}</th>
+            <th v-for="label in grid.columns" :key="label" scope="col"><span>{{ label }}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +56,13 @@ function reset() {
                 :aria-label="cellLabel(row, label, marks[grid.id][row][col])"
                 @click="cycle(grid.id, row, col)"
               >
-                {{ SYMBOLS[marks[grid.id][row][col]] }}
+                <X v-if="marks[grid.id][row][col] === NO" :size="20" :stroke-width="2.5" aria-hidden="true" />
+                <Circle
+                  v-else-if="marks[grid.id][row][col] === YES"
+                  :size="16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                />
               </button>
             </td>
           </tr>
