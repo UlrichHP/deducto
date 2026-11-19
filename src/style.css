@@ -868,3 +868,13 @@ button {
   font-weight: 400;
   font-size: 1.02rem;
 }
+
+/* Limelight is tightly set: open it up wherever it is used (the logo has its own). */
+.screen-title,
+.game-header h1,
+.modal h2,
+.rank-name,
+.stat dd,
+.profile-rank {
+  letter-spacing: 0.05em;
+}
