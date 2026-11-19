@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Circle, X } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useCaseSession } from '../composables/caseSession'
 import { cycleMark, emptyMarks, NO, YES, type GridId, type Mark } from '../game/notebook'
 import type { Case } from '../game/types'
 import { itemText, roomText, suspectName } from '../i18n/caseText'
+import MarkIcon from './MarkIcon.vue'
 
 const MARK_KEYS = ['empty', 'no', 'yes'] as const
 
@@ -34,7 +34,11 @@ function reset() {
 
 <template>
   <section class="notebook">
-    <p class="hint">{{ t('ui.notebookHint') }}</p>
+    <i18n-t keypath="ui.notebookHint" tag="p" class="hint">
+      <template #arrow><MarkIcon mark="arrow" :size="16" /></template>
+      <template #no><MarkIcon mark="no" :size="16" /></template>
+      <template #yes><MarkIcon mark="yes" :size="16" /></template>
+    </i18n-t>
 
     <div v-for="grid in grids" :key="grid.id">
       <h2 class="section-title">{{ grid.title }}</h2>
@@ -56,13 +60,8 @@ function reset() {
                 :aria-label="cellLabel(row, label, marks[grid.id][row][col])"
                 @click="cycle(grid.id, row, col)"
               >
-                <X v-if="marks[grid.id][row][col] === NO" :size="20" :stroke-width="2.5" aria-hidden="true" />
-                <Circle
-                  v-else-if="marks[grid.id][row][col] === YES"
-                  :size="16"
-                  fill="currentColor"
-                  aria-hidden="true"
-                />
+                <MarkIcon v-if="marks[grid.id][row][col] === NO" mark="no" />
+                <MarkIcon v-else-if="marks[grid.id][row][col] === YES" mark="yes" />
               </button>
             </td>
           </tr>
