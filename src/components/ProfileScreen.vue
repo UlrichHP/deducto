@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Lock, Star } from 'lucide-vue-next'
+import AchievementItem from './AchievementItem.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ACHIEVEMENTS, bestScore, currentStreak, rankInfo } from '../progress/progress'
@@ -50,12 +50,7 @@ const lastDays = computed(() =>
 )
 
 const achievements = computed(() =>
-  ACHIEVEMENTS.map((id) => ({
-    id,
-    unlocked: Boolean(p.value.achievements[id]),
-    title: t(`achievements.${id}.title`),
-    description: t(`achievements.${id}.description`),
-  })),
+  ACHIEVEMENTS.map((id) => ({ id, unlocked: Boolean(p.value.achievements[id]) })),
 )
 const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked).length)
 </script>
@@ -112,17 +107,7 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
       <small>{{ t('profile.unlockedCount', { n: unlockedCount, total: achievements.length }) }}</small>
     </h2>
     <ul class="achievements">
-      <li v-for="a in achievements" :key="a.id" class="achievement" :class="{ locked: !a.unlocked }">
-        <span class="achievement-badge" aria-hidden="true">
-          <Star v-if="a.unlocked" :size="22" fill="currentColor" :stroke-width="1.5" />
-          <Lock v-else :size="16" :stroke-width="2" />
-        </span>
-        <span>
-          <strong>{{ a.title }}</strong>
-          <span class="achievement-desc">{{ a.description }}</span>
-          <span v-if="!a.unlocked" class="visually-hidden">({{ t('profile.locked') }})</span>
-        </span>
-      </li>
+      <AchievementItem v-for="a in achievements" :id="a.id" :key="a.id" :unlocked="a.unlocked" />
     </ul>
   </main>
 </template>

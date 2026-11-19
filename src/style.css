@@ -406,18 +406,6 @@ button {
 .modal .section-title {
   margin: 8px 0 0;
 }
-.truth {
-  display: grid;
-  gap: 4px;
-  margin: 0 0 8px;
-  padding: 0;
-  list-style: none;
-  color: var(--muted);
-}
-.truth .is-culprit {
-  font-weight: 700;
-  color: var(--accent);
-}
 
 @keyframes fade {
   from {
@@ -682,10 +670,6 @@ button {
 .achievement.locked .achievement-badge {
   background: var(--panel-2);
   color: var(--muted);
-}
-.unlocked p {
-  margin: 0;
-  color: var(--accent);
 }
 .visually-hidden {
   position: absolute;
@@ -1114,7 +1098,7 @@ button {
 .board-card.conflict {
   border-color: var(--no-text);
 }
-.board-card-alert {
+.board-card-badge {
   position: absolute;
   top: -6px;
   right: -6px;
@@ -1176,19 +1160,6 @@ button {
   font-family: var(--font-type);
   color: var(--yes);
 }
-.truth li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.truth-mark {
-  flex: none;
-  color: var(--no-text);
-}
-.truth-mark.ok {
-  color: var(--yes);
-}
 
 /* --- Profile spacing --------------------------------------------------------------- */
 
@@ -1214,4 +1185,38 @@ button {
     corner-shape: squircle;
     border-radius: 24px;
   }
+}
+
+/* Card badges: notebook conflict, and right/wrong on the solution board */
+.board-card-badge.right {
+  background: var(--yes);
+  color: #fff;
+}
+.board-card-badge.wrong {
+  background: var(--no);
+  color: var(--no-text);
+}
+.board-card.readonly {
+  cursor: default;
+  touch-action: auto;
+}
+.board-card.highlight {
+  border-color: var(--no-text);
+}
+
+/* End-of-case modal: room for the solution board and achievement cards */
+.modal {
+  width: min(560px, 100%);
+}
+.modal .achievements,
+.modal .solution-board {
+  margin-bottom: 8px;
+  text-align: left;
+}
+.modal .solution-board .board-card {
+  min-height: 80px;
+}
+.modal .solution-board .board-card-label {
+  font-size: 0.58rem;
+  overflow-wrap: break-word;
 }

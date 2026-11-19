@@ -3,19 +3,20 @@ export type CaseLabel = { kind: 'daily'; date: Date } | { kind: 'random'; number
 </script>
 
 <script setup lang="ts">
-import { Check, X } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { provideCaseSession } from '../composables/caseSession'
 import { boardAccuracy } from '../game/board'
 import type { Case } from '../game/types'
-import { itemText, roomText, suspectName } from '../i18n/caseText'
+import { suspectName } from '../i18n/caseText'
 import type { AchievementId } from '../progress/progress'
 import { MAX_SCORE, scoreGame, type Score } from '../progress/score'
 import { recordGame } from '../progress/store'
 import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
+import AchievementItem from './AchievementItem.vue'
 import AppModal from './AppModal.vue'
+import SolutionBoard from './board/SolutionBoard.vue'
 import CaseFile from './CaseFile.vue'
 import HelpButton from './HelpButton.vue'
 import SettingsButton from './SettingsButton.vue'
@@ -75,13 +76,6 @@ function accuse(index: number) {
 
 /** The player put at least one card on the board. */
 const boardUsed = computed(() => Object.values(session.board.value).some((row) => row.some((card) => card !== null)))
-
-/** Suspect i and their item are both under the right room on the board. */
-function boardRowRight(i: number) {
-  const room = props.game.roomOf[i]
-  const board = session.board.value
-  return board.suspect[room] === i && board.item[room] === props.game.itemOf[i]
-}
 
 function end(won: boolean) {
   finished.value = true
@@ -181,23 +175,15 @@ function end(won: boolean) {
           <p v-if="modal.boardCorrect === modal.boardTotal" class="score-perfect">{{ t('score.perfectBoard') }}</p>
         </div>
 
-        <div v-if="unlocked.length" class="unlocked">
+        <template v-if="unlocked.length">
           <h3 class="section-title">{{ t('ui.achievementUnlocked') }}</h3>
-          <p v-for="id in unlocked" :key="id">★ {{ t(`achievements.${id}.title`) }}</p>
-        </div>
+          <ul class="achievements">
+            <AchievementItem v-for="id in unlocked" :id="id" :key="id" unlocked />
+          </ul>
+        </template>
 
         <h3 class="section-title">{{ t('ui.truth') }}</h3>
-        <ul class="truth">
-          <li v-for="(id, i) in game.suspects" :key="id" :class="{ 'is-culprit': i === game.culprit }">
-            <template v-if="boardUsed">
-              <Check v-if="boardRowRight(i)" class="truth-mark ok" :size="16" aria-hidden="true" />
-              <X v-else class="truth-mark" :size="16" aria-hidden="true" />
-              <span class="visually-hidden">{{ boardRowRight(i) ? t('score.rowRight') : t('score.rowWrong') }}</span>
-            </template>
-            {{ suspectName(game, i) }} · {{ roomText(t, game, game.roomOf[i], 'label') }} ·
-            {{ itemText(t, game, game.itemOf[i], 'label') }}
-          </li>
-        </ul>
+        <SolutionBoard :game="game" :board="session.board.value" :show-status="boardUsed" />
         <button class="btn btn-accent" @click="emit('newCase', game.size)">{{ t('ui.newCase') }}</button>
         <button class="btn" @click="modal = null">{{ t('ui.reviewFile') }}</button>
         <button class="btn btn-ghost" @click="emit('menu')">{{ t('ui.menu') }}</button>

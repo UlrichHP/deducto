@@ -73,7 +73,8 @@ src/
     ProfileScreen.vue   rank, stats, last 7 daily cases, achievements
     SettingsButton.vue  gear button opening SettingsModal.vue (language, music, effects)
     HelpButton.vue      "?" button opening the how-to-play modal
-    board/              case board: CaseBoard, BoardCard, SuspectPortrait, icons
+    board/              case board and end-of-case SolutionBoard, BoardCard, SuspectPortrait, icons
+    AchievementItem.vue achievement card shared by the profile and the end screen
     AppModal.vue, LanguageSwitch.vue
   utils/                string and date helpers
   style.css             design tokens and all styles (mobile first)
