@@ -1256,11 +1256,3 @@ button {
 .board-tray[data-tray='item'] {
   min-height: 80px;
 }
-
-/* Optical centering in round badges: a star looks high, a padlock looks low. */
-.badge-star {
-  transform: translateY(1px);
-}
-.badge-lock {
-  transform: translateY(-1px);
-}
