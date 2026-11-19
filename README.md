@@ -6,7 +6,7 @@ A murder has been committed in a manor. Each suspect was in a different room and
 
 Every case is generated from a seed and has exactly one solution. The **daily case** uses the date as its seed, so everyone gets the same puzzle on a given day.
 
-Progress is kept on the device: a profile screen shows the player's rank, stats, daily-case streak and achievements. Sound effects and slow, haunting noir background music are synthesized in the browser with the Web Audio API, so there are no audio files to download.
+Progress is kept on the device: a profile screen shows the player's rank, stats, daily-case streak and achievements. Sound effects and dreamlike noir background music are synthesized in the browser with the Web Audio API, so there are no audio files to download.
 
 ## Stack
 
