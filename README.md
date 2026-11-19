@@ -6,6 +6,8 @@ A murder has been committed in a manor. Each suspect was in a different room and
 
 Every case is generated from a seed and has exactly one solution. The **daily case** uses the date as its seed, so everyone gets the same puzzle on a given day.
 
+Progress is kept on the device: a profile screen shows the player's rank, stats, daily-case streak and achievements. Sound effects and a background jazz loop are synthesized in the browser with the Web Audio API, so there are no audio files to download.
+
 ## Stack
 
 - [Vue 3](https://vuejs.org/) + TypeScript, built with [Vite](https://vite.dev/)
@@ -43,13 +45,24 @@ src/
     locale.ts           initial locale detection and persistence
     caseText.ts         turns a case into sentences (report, clues, labels)
     __tests__/          locale parity and rendering tests
+  progress/
+    progress.ts         stats, streak, ranks, achievements (pure functions)
+    store.ts            reactive progress saved to localStorage
+    __tests__/          progression tests
+  audio/
+    index.ts            unlock on first gesture, click sounds, music on/off
+    engine.ts           shared AudioContext with music and effects buses
+    sfx.ts              synthesized sound effects
+    music.ts            generative background music (lookahead scheduler)
+    settings.ts         volumes and mute, saved to localStorage
   components/
     MenuScreen.vue      title screen
     GameScreen.vue      tabs, accusation flow, end of game
     CaseFile.vue        police report, suspects, clues
     NoteBook.vue        suspect × room and suspect × item grids
-    AppModal.vue, LanguageSwitch.vue
-  utils/text.ts         small string helpers
+    ProfileScreen.vue   rank, stats, last 7 daily cases, achievements, settings
+    AudioSettings.vue, SoundToggle.vue, AppModal.vue, LanguageSwitch.vue
+  utils/                string and date helpers
   style.css             design tokens and all styles (mobile first)
 ```
 
@@ -61,6 +74,10 @@ src/
 4. Try removing each clue; drop it if the solution stays unique. The remaining set has no redundant clue.
 
 Clues are stored as logic (`notRoom`, `notItem`, `roomItem`, `notRoomItem`, `eitherRoom`) plus a phrasing variant (`a` or `b`). Each locale provides its own sentence templates in `clues.<type>.<variant>`, so the language can change mid-game.
+
+## Sound
+
+Browsers block audio until the first user gesture, so the audio context is created on the first tap or key press. Any `<button>` plays a short tap; set `data-sfx="<name>"` on an element to play another effect (`pen`, `strike`, …) or `data-sfx="none"` to stay silent. Game events (`wrong`, `win`, `lose`, `achievement`) are played from code with `playSound()`. Audio pauses when the page is hidden.
 
 ## Translations
 
