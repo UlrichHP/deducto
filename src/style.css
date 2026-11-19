@@ -1068,3 +1068,33 @@ button {
     border-radius: 16px;
   }
 }
+
+/* --- Case file spacing ------------------------------------------------------------ */
+
+/* Each part of the case file (report, suspects, clues, board) is its own block. */
+.case-file > .section-title,
+.board > .section-title {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+.case-file > .section-title:first-child {
+  margin-top: 20px;
+  padding-top: 0;
+  border-top: 0;
+}
+.case-file > .section-title + * {
+  margin-top: 4px;
+}
+.case-file p {
+  margin-bottom: 16px;
+}
+.suspects {
+  gap: 10px;
+}
+.clues {
+  gap: 10px;
+}
+.board {
+  margin-top: 0;
+}
