@@ -902,9 +902,9 @@ button {
 .board-room {
   display: grid;
   justify-items: center;
-  align-content: start;
+  align-content: center;
   gap: 4px;
-  min-height: 64px;
+  min-height: 52px;
   padding: 8px 1px;
   border-radius: 10px;
   background: var(--panel-2);
@@ -960,7 +960,7 @@ button {
   align-content: center;
   gap: 4px;
   min-width: 0;
-  min-height: 88px;
+  min-height: 64px;
   padding: 6px 3px;
   border: 1px solid rgb(255 255 255 / 0.12);
   border-radius: 8px;
@@ -1205,9 +1205,6 @@ button {
   margin-bottom: 8px;
   text-align: left;
 }
-.modal .solution-board .board-card {
-  min-height: 80px;
-}
 .modal .solution-board .board-card-label {
   font-size: 0.58rem;
   overflow-wrap: break-word;
@@ -1247,4 +1244,15 @@ button {
   font-size: 1.25rem;
   letter-spacing: 0.04em;
   color: var(--accent);
+}
+
+/* Card heights follow their content: portraits need more room than icons. */
+.board-card.is-suspect {
+  min-height: 88px;
+}
+.board-slot[data-slot-kind='item'] {
+  min-height: 68px;
+}
+.board-tray[data-tray='item'] {
+  min-height: 80px;
 }
