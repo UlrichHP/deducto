@@ -11,6 +11,7 @@ import { SUSPECT_NAMES } from '../../game/data'
 import type { Case } from '../../game/types'
 import { itemText, roomText } from '../../i18n/caseText'
 import BoardCard from './BoardCard.vue'
+import RoomHeader from './RoomHeader.vue'
 import { ITEM_ICONS, ROOM_ICONS } from './icons'
 
 const props = defineProps<{ game: Case; board: BoardState; showStatus: boolean }>()
@@ -45,11 +46,7 @@ const columns = computed(() =>
 <template>
   <div class="board-grid solution-board" :style="{ '--cols': game.size }">
     <div v-for="col in columns" :key="col.id" class="board-column" :class="{ crime: col.crime }">
-      <div class="board-room">
-        <component :is="col.icon" :size="18" :stroke-width="1.6" aria-hidden="true" />
-        <span>{{ col.label }}</span>
-        <span v-if="col.crime" class="board-crime">{{ t('board.crimeScene') }}</span>
-      </div>
+      <RoomHeader :label="col.label" :icon="col.icon" :crime="col.crime" />
       <BoardCard
         readonly
         :label="col.suspect.label"

@@ -916,15 +916,6 @@ button {
   overflow-wrap: break-word;
   hyphens: auto;
 }
-.board-column.crime .board-room {
-  box-shadow: inset 0 0 0 1.5px var(--no-text);
-}
-.board-crime {
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--no-text);
-}
 .board-slot {
   display: grid;
   min-height: 92px;
@@ -1219,4 +1210,40 @@ button {
 .modal .solution-board .board-card-label {
   font-size: 0.58rem;
   overflow-wrap: break-word;
+}
+
+/* Crime scene: blade badge on the room header (keeps every header the same height) */
+.board-room {
+  position: relative;
+}
+.board-room.crime {
+  box-shadow: inset 0 0 0 1.5px var(--no-text);
+}
+.board-card-badge.crime {
+  background: var(--no-text);
+  color: var(--bg);
+}
+
+/* Achievement cards stand out from the modal background */
+.modal .achievement {
+  background: var(--panel-2);
+}
+
+/* Rows line up across columns even when a room name wraps. */
+@supports (grid-template-rows: subgrid) {
+  .board-column {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+}
+
+/* "Solved in 1 min 05 s" under the verdict, time in the display face */
+.solved-in {
+  color: var(--muted);
+}
+.solved-time {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }

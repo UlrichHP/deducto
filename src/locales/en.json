@@ -38,7 +38,7 @@
     "resume": "Back to the case",
     "solved": "Case solved!",
     "closed": "Case closed",
-    "won": "It was indeed {name}, {role}. Solved in {duration}.",
+    "won": "It was indeed {name}, {role}.",
     "lost": "No accusations left. The culprit was {name}, {role}.",
     "truth": "The truth",
     "reviewFile": "Review the case",
@@ -48,7 +48,8 @@
     "dailyLost": "Daily case · failed",
     "achievementUnlocked": "Achievement unlocked",
     "howToBoard": "Under the clues, the case board helps you lay out your theory: drag each suspect and each item under a room. Rooms you crossed out in the notebook dim, and a warning flags any card that contradicts your notes.",
-    "howToScore": "Your score (out of 1000) rewards a first-try accusation (up to 500), a complete and correct board (up to 300) and speed (up to 200)."
+    "howToScore": "Your score (out of 1000) rewards a first-try accusation (up to 500), a complete and correct board (up to 300) and speed (up to 200).",
+    "solvedIn": "Solved in {time}"
   },
   "profile": {
     "title": "Profile",

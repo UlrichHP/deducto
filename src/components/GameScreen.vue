@@ -148,9 +148,14 @@ function end(won: boolean) {
       </template>
 
       <template v-else>
-        <p v-if="modal.won">
-          {{ t('ui.won', { ...culprit, duration: formatDuration(modal.seconds) }) }}
-        </p>
+        <template v-if="modal.won">
+          <p>{{ t('ui.won', culprit) }}</p>
+          <i18n-t keypath="ui.solvedIn" tag="p" class="solved-in">
+            <template #time>
+              <span class="solved-time">{{ formatDuration(modal.seconds) }}</span>
+            </template>
+          </i18n-t>
+        </template>
         <p v-else>{{ t('ui.lost', culprit) }}</p>
 
         <div class="score-card">
