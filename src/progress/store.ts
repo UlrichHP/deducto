@@ -1,5 +1,5 @@
 /** Reactive progress saved to localStorage. */
-import { ref, watch } from 'vue'
+import { ref, toRaw, watch } from 'vue'
 import { normalizeProgress, recordResult, type AchievementId, type GameResult, type Progress } from './progress'
 
 const STORAGE_KEY = 'deducto.progress'
@@ -29,7 +29,8 @@ watch(
 
 /** Records a finished game and returns the achievements it unlocked. */
 export function recordGame(result: GameResult): AchievementId[] {
-  const { progress: next, unlocked } = recordResult(progress.value, result, new Date())
+  // recordResult deep-copies its input; structuredClone cannot copy a Vue proxy.
+  const { progress: next, unlocked } = recordResult(toRaw(progress.value), result, new Date())
   progress.value = next
   return unlocked
 }

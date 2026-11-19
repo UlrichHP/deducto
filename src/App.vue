@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
+import { ref, shallowRef } from 'vue'
 import GameScreen, { type CaseLabel } from './components/GameScreen.vue'
 import MenuScreen from './components/MenuScreen.vue'
+import ProfileScreen from './components/ProfileScreen.vue'
 import { generateCase } from './game/generator'
 import { hashString } from './game/rng'
 import type { Case } from './game/types'
+import { dayKey } from './utils/date'
 
 interface Session {
   game: Case
@@ -13,13 +15,12 @@ interface Session {
 
 const DAILY_SIZE = 5
 const session = shallowRef<Session | null>(null)
+const showProfile = ref(false)
 
 function startDaily() {
   const now = new Date()
-  const pad = (n: number) => String(n).padStart(2, '0')
-  const day = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
   session.value = {
-    game: generateCase(DAILY_SIZE, hashString(`deducto-${day}`)),
+    game: generateCase(DAILY_SIZE, hashString(`deducto-${dayKey(now)}`)),
     label: { kind: 'daily', date: now },
   }
 }
@@ -31,16 +32,22 @@ function startRandom(size: number) {
     label: { kind: 'random', number: String(seed % 10000).padStart(4, '0') },
   }
 }
+
+function backToMenu() {
+  session.value = null
+  showProfile.value = false
+}
 </script>
 
 <template>
-  <MenuScreen v-if="!session" @daily="startDaily" @random="startRandom" />
   <GameScreen
-    v-else
+    v-if="session"
     :key="session.game.seed"
     :game="session.game"
     :label="session.label"
-    @menu="session = null"
+    @menu="backToMenu"
     @new-case="startRandom"
   />
+  <ProfileScreen v-else-if="showProfile" @back="showProfile = false" />
+  <MenuScreen v-else @daily="startDaily" @random="startRandom" @profile="showProfile = true" />
 </template>

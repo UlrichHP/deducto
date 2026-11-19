@@ -7,6 +7,9 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Case } from '../game/types'
 import { itemText, roomText, suspectName } from '../i18n/caseText'
+import type { AchievementId } from '../progress/progress'
+import { recordGame } from '../progress/store'
+import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
 import AppModal from './AppModal.vue'
 import CaseFile from './CaseFile.vue'
@@ -28,6 +31,7 @@ const tab = ref<'file' | 'notebook'>('file')
 const accusationsLeft = ref(MAX_ACCUSATIONS)
 const finished = ref(false)
 const modal = ref<Modal | null>(null)
+const unlocked = ref<AchievementId[]>([])
 const startedAt = Date.now()
 
 const title = computed(() =>
@@ -63,7 +67,15 @@ function accuse(index: number) {
 
 function end(won: boolean) {
   finished.value = true
-  modal.value = { kind: 'end', won, seconds: Math.round((Date.now() - startedAt) / 1000) }
+  const seconds = Math.round((Date.now() - startedAt) / 1000)
+  unlocked.value = recordGame({
+    size: props.game.size,
+    won,
+    seconds,
+    accusations: MAX_ACCUSATIONS - accusationsLeft.value + (won ? 1 : 0),
+    daily: props.label.kind === 'daily' ? dayKey(props.label.date) : null,
+  })
+  modal.value = { kind: 'end', won, seconds }
 }
 </script>
 
@@ -119,6 +131,11 @@ function end(won: boolean) {
           {{ t('ui.won', { ...culprit, duration: formatDuration(modal.seconds) }) }}
         </p>
         <p v-else>{{ t('ui.lost', culprit) }}</p>
+
+        <div v-if="unlocked.length" class="unlocked">
+          <h3 class="section-title">{{ t('ui.achievementUnlocked') }}</h3>
+          <p v-for="id in unlocked" :key="id">★ {{ t(`achievements.${id}.title`) }}</p>
+        </div>
 
         <h3 class="section-title">{{ t('ui.truth') }}</h3>
         <ul class="truth">
