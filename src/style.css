@@ -1091,12 +1091,13 @@ button {
 }
 .board-card-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: 3px;
+  right: 3px;
+  z-index: 1;
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--no-text);
   color: var(--bg);
