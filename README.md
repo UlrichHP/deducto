@@ -2,7 +2,9 @@
 
 A procedural deduction game for the browser and Android, in English and French.
 
-A murder has been committed in a manor. Each suspect was in a different room and held a different item. The police report gives the crime room and the weapon; the culprit is whoever was in that room with that weapon. Read the clues (all true), fill in the notebook grid, and make your accusation. You get three tries.
+A murder has been committed in a manor. Each suspect was in a different room and held a different item. The police report gives the crime room and the weapon; the culprit is whoever was in that room with that weapon. Read the clues (all true), fill in the notebook grid, and make your accusation: pick a suspect's card, then confirm. You get three tries; suspects cleared by a wrong accusation stay greyed out.
+
+A case has two tabs: the **case file** (police report, suspects, clues and case board) and the **notebook** (suspect × room and suspect × item grids, where a cell cycles empty → ✕ impossible → ● certain).
 
 Every case is generated from a seed and has exactly one solution. The **daily case** uses the date as its seed, so everyone gets the same puzzle on a given day.
 
@@ -63,6 +65,7 @@ src/
     sfx.ts              synthesized sound effects
     music.ts            generative background music (lookahead scheduler)
     settings.ts         music and effects on/off and volumes, saved to localStorage
+    __tests__/          settings migration tests
   composables/
     caseSession.ts      per-case board and notebook state, provided by GameScreen
   components/
@@ -73,10 +76,13 @@ src/
     ProfileScreen.vue   rank, stats, last 7 daily cases, achievements
     SettingsButton.vue  gear button opening SettingsModal.vue (language, music, effects)
     HelpButton.vue      "?" button opening the how-to-play modal
-    board/              case board and end-of-case SolutionBoard, BoardCard, SuspectPortrait, icons
+    board/              CaseBoard, end-of-case SolutionBoard, BoardCard, RoomHeader,
+                        SuspectPortrait (noir silhouettes), icons (room and item icons)
     AchievementItem.vue achievement card shared by the profile and the end screen
+    MarkIcon.vue        notebook ✕ / ● / → icons, also used inside help sentences
     AppModal.vue, LanguageSwitch.vue
   utils/                string and date helpers
+  fonts.css             self-hosted font faces (Latin subset)
   style.css             design tokens and all styles (mobile first)
 ```
 
@@ -91,10 +97,18 @@ Clues are stored as logic (`notRoom`, `notItem`, `roomItem`, `notRoomItem`, `eit
 
 ## Sound
 
-Browsers block audio until the first user gesture, so the audio context is created on the first tap or key press. Any `<button>` plays a short tap; set `data-sfx="<name>"` on an element to play another effect (`pen`, `strike`, …) or `data-sfx="none"` to stay silent. Game events (`wrong`, `win`, `lose`, `achievement`) are played from code with `playSound()`. Audio pauses when the page is hidden.
+Browsers block audio until the first user gesture, so the audio context is created on the first tap or key press. Any `<button>` plays a short tap; set `data-sfx="<name>"` on an element to play another effect (`pen`, `strike`, `card`, …) or `data-sfx="none"` to stay silent. Game events (`wrong`, `win`, `lose`, `achievement`) are played from code with `playSound()`. Audio pauses when the page is hidden.
 
 ## Translations
 
 All strings live in `src/locales/<code>.json` and use the [vue-i18n message format](https://vue-i18n.intlify.dev/guide/essentials/syntax.html): `{name}` placeholders and `singular | plural` forms. Grammatical gender is handled with separate keys (see `report.m` / `report.f` and `victims.<id>.gender`).
 
+Sentences that show the notebook marks use `{no}`, `{yes}` and `{arrow}` placeholders, rendered as icons through the `<i18n-t>` component (see `NoteBook.vue` and `HelpButton.vue`).
+
 To add a language, copy `en.json`, translate it, and register the code in `SUPPORTED_LOCALES` and `messages` in `src/i18n/index.ts`. The locale tests fail if a key is missing or a clue does not render as a full sentence.
+
+## Credits
+
+- Fonts: [Limelight](https://fonts.google.com/specimen/Limelight) and [Inter](https://rsms.me/inter/) (SIL Open Font License), [Special Elite](https://fonts.google.com/specimen/Special+Elite) (Apache License 2.0), via Fontsource.
+- Icons: [Lucide](https://lucide.dev/) (ISC License).
+- Suspect portraits, sound effects and music are original and generated in code.
