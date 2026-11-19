@@ -465,14 +465,12 @@ button {
 }
 .profile-btn {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  line-height: 1.2;
-  text-align: left;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
 }
 .profile-meta {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--accent);
 }
 .btn-done {
