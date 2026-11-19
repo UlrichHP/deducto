@@ -12,12 +12,18 @@ export interface GameResult {
   accusations: number
   /** Day key when this was the daily case, otherwise null. */
   daily: string | null
+  /** Case board slots holding the right card, out of boardTotal. */
+  boardCorrect: number
+  boardTotal: number
+  /** Case score out of 1000 (see score.ts). */
+  score: number
 }
 
 export interface SizeStats {
   solved: number
   failed: number
   bestSeconds: number | null
+  bestScore: number | null
 }
 
 export interface Progress {
@@ -26,6 +32,8 @@ export interface Progress {
   failed: number
   /** Cases solved with the first accusation. */
   firstTry: number
+  /** Cases solved with every board slot right. */
+  perfectBoards: number
   bySize: Record<string, SizeStats>
   /** Outcome of each daily case played, by day key. */
   daily: Record<string, 'won' | 'lost'>
@@ -48,6 +56,9 @@ export const ACHIEVEMENTS = [
   'streak3',
   'streak7',
   'streak30',
+  'perfectBoard',
+  'architect',
+  'masterpiece',
 ] as const
 export type AchievementId = (typeof ACHIEVEMENTS)[number]
 
@@ -67,6 +78,13 @@ const ACHIEVEMENT_TESTS: Record<AchievementId, AchievementTest> = {
   streak3: (p) => p.streak.current >= 3,
   streak7: (p) => p.streak.current >= 7,
   streak30: (p) => p.streak.current >= 30,
+  perfectBoard: (_, r) => isPerfectBoard(r),
+  architect: (p) => p.perfectBoards >= 10,
+  masterpiece: (_, r) => r.won && r.score >= 1000,
+}
+
+function isPerfectBoard(r: GameResult): boolean {
+  return r.won && r.boardTotal > 0 && r.boardCorrect === r.boardTotal
 }
 
 /** Ranks by number of cases solved, in ascending order. */
@@ -86,6 +104,7 @@ export function emptyProgress(): Progress {
     solved: 0,
     failed: 0,
     firstTry: 0,
+    perfectBoards: 0,
     bySize: {},
     daily: {},
     streak: { current: 0, best: 0, lastDay: null },
@@ -105,13 +124,15 @@ export function recordResult(
   if (result.daily && prev.daily[result.daily]) return { progress: prev, unlocked: [] }
 
   const p: Progress = structuredClone(prev)
-  const size = (p.bySize[result.size] ??= { solved: 0, failed: 0, bestSeconds: null })
+  const size = (p.bySize[result.size] ??= { solved: 0, failed: 0, bestSeconds: null, bestScore: null })
 
   if (result.won) {
     p.solved++
     size.solved++
     if (result.accusations === 1) p.firstTry++
     if (size.bestSeconds === null || result.seconds < size.bestSeconds) size.bestSeconds = result.seconds
+    size.bestScore = Math.max(size.bestScore ?? 0, result.score)
+    if (isPerfectBoard(result)) p.perfectBoards++
   } else {
     p.failed++
     size.failed++
@@ -131,6 +152,12 @@ export function recordResult(
   for (const id of unlocked) p.achievements[id] = now.toISOString()
 
   return { progress: p, unlocked }
+}
+
+/** Best score across all board sizes, or null before the first solve. */
+export function bestScore(p: Progress): number | null {
+  const scores = Object.values(p.bySize).map((s) => s.bestScore ?? null).filter((s) => s !== null)
+  return scores.length ? Math.max(...scores) : null
 }
 
 /** Streak still alive today: the last daily case won was today or yesterday. */

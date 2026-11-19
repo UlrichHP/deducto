@@ -3,11 +3,15 @@ export type CaseLabel = { kind: 'daily'; date: Date } | { kind: 'random'; number
 </script>
 
 <script setup lang="ts">
+import { Check, X } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { provideCaseSession } from '../composables/caseSession'
+import { boardAccuracy } from '../game/board'
 import type { Case } from '../game/types'
 import { itemText, roomText, suspectName } from '../i18n/caseText'
 import type { AchievementId } from '../progress/progress'
+import { MAX_SCORE, scoreGame, type Score } from '../progress/score'
 import { recordGame } from '../progress/store'
 import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
@@ -21,13 +25,14 @@ import { playSound } from '../audio'
 const MAX_ACCUSATIONS = 3
 
 const props = defineProps<{ game: Case; label: CaseLabel }>()
+const session = provideCaseSession(props.game.size)
 const emit = defineEmits<{ menu: []; newCase: [size: number] }>()
 const { t, locale } = useI18n()
 
 type Modal =
   | { kind: 'accuse' }
   | { kind: 'wrong'; suspect: number }
-  | { kind: 'end'; won: boolean; seconds: number }
+  | { kind: 'end'; won: boolean; seconds: number; score: Score; boardCorrect: number; boardTotal: number }
 
 const tab = ref<'file' | 'notebook'>('file')
 const accusationsLeft = ref(MAX_ACCUSATIONS)
@@ -68,17 +73,33 @@ function accuse(index: number) {
   modal.value = { kind: 'wrong', suspect: index }
 }
 
+/** The player put at least one card on the board. */
+const boardUsed = computed(() => Object.values(session.board.value).some((row) => row.some((card) => card !== null)))
+
+/** Suspect i and their item are both under the right room on the board. */
+function boardRowRight(i: number) {
+  const room = props.game.roomOf[i]
+  const board = session.board.value
+  return board.suspect[room] === i && board.item[room] === props.game.itemOf[i]
+}
+
 function end(won: boolean) {
   finished.value = true
   const seconds = Math.round((Date.now() - startedAt) / 1000)
+  const accusations = MAX_ACCUSATIONS - accusationsLeft.value + (won ? 1 : 0)
+  const { correct, total } = boardAccuracy(session.board.value, props.game.roomOf, props.game.itemOf)
+  const score = scoreGame({ won, size: props.game.size, seconds, accusations, boardCorrect: correct, boardTotal: total })
   unlocked.value = recordGame({
     size: props.game.size,
     won,
     seconds,
-    accusations: MAX_ACCUSATIONS - accusationsLeft.value + (won ? 1 : 0),
+    accusations,
     daily: props.label.kind === 'daily' ? dayKey(props.label.date) : null,
+    boardCorrect: correct,
+    boardTotal: total,
+    score: score.total,
   })
-  modal.value = { kind: 'end', won, seconds }
+  modal.value = { kind: 'end', won, seconds, score, boardCorrect: correct, boardTotal: total }
   playSound(won ? 'win' : 'lose')
   if (unlocked.value.length) playSound('achievement', 0.8)
 }
@@ -138,6 +159,28 @@ function end(won: boolean) {
         </p>
         <p v-else>{{ t('ui.lost', culprit) }}</p>
 
+        <div class="score-card">
+          <p class="score-total">
+            <span class="score-value">{{ modal.score.total }}</span>
+            <span class="score-max">/ {{ MAX_SCORE }}</span>
+          </p>
+          <dl class="score-lines">
+            <div>
+              <dt>{{ t('score.accusation') }}</dt>
+              <dd>+{{ modal.score.accusation }}</dd>
+            </div>
+            <div>
+              <dt>{{ t('score.board', { correct: modal.boardCorrect, total: modal.boardTotal }) }}</dt>
+              <dd>+{{ modal.score.board }}</dd>
+            </div>
+            <div>
+              <dt>{{ t('score.time', { time: formatDuration(modal.seconds) }) }}</dt>
+              <dd>+{{ modal.score.time }}</dd>
+            </div>
+          </dl>
+          <p v-if="modal.boardCorrect === modal.boardTotal" class="score-perfect">{{ t('score.perfectBoard') }}</p>
+        </div>
+
         <div v-if="unlocked.length" class="unlocked">
           <h3 class="section-title">{{ t('ui.achievementUnlocked') }}</h3>
           <p v-for="id in unlocked" :key="id">★ {{ t(`achievements.${id}.title`) }}</p>
@@ -146,6 +189,11 @@ function end(won: boolean) {
         <h3 class="section-title">{{ t('ui.truth') }}</h3>
         <ul class="truth">
           <li v-for="(id, i) in game.suspects" :key="id" :class="{ 'is-culprit': i === game.culprit }">
+            <template v-if="boardUsed">
+              <Check v-if="boardRowRight(i)" class="truth-mark ok" :size="16" aria-hidden="true" />
+              <X v-else class="truth-mark" :size="16" aria-hidden="true" />
+              <span class="visually-hidden">{{ boardRowRight(i) ? t('score.rowRight') : t('score.rowWrong') }}</span>
+            </template>
             {{ suspectName(game, i) }} · {{ roomText(t, game, game.roomOf[i], 'label') }} ·
             {{ itemText(t, game, game.itemOf[i], 'label') }}
           </li>

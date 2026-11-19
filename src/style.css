@@ -1098,3 +1098,120 @@ button {
 .board {
   margin-top: 0;
 }
+
+/* Notebook hints on the board */
+.board-slot.excluded {
+  border-color: rgb(240 196 201 / 0.35);
+  background: repeating-linear-gradient(
+    -45deg,
+    rgb(110 47 55 / 0.28) 0 6px,
+    transparent 6px 12px
+  );
+}
+.board-card {
+  position: relative;
+}
+.board-card.conflict {
+  border-color: var(--no-text);
+}
+.board-card-alert {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--no-text);
+  color: var(--bg);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
+}
+
+/* --- Score card (end of case) ------------------------------------------------------ */
+
+.score-card {
+  margin: 4px 0 8px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--bg);
+}
+.score-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 10px !important;
+}
+.score-value {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.score-max {
+  color: var(--muted);
+}
+.score-lines {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+.score-lines div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+.score-lines dt {
+  color: var(--muted);
+  text-align: left;
+}
+.score-lines dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.score-perfect {
+  margin: 10px 0 0 !important;
+  font-family: var(--font-type);
+  color: var(--yes);
+}
+.truth li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.truth-mark {
+  flex: none;
+  color: var(--no-text);
+}
+.truth-mark.ok {
+  color: var(--yes);
+}
+
+/* --- Profile spacing --------------------------------------------------------------- */
+
+.profile > .section-title {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+.profile .screen-title {
+  margin: 24px 0 20px;
+}
+.stat-grid {
+  gap: 10px;
+}
+.achievements {
+  gap: 10px;
+}
+.week {
+  margin-top: 4px;
+}
+@supports (corner-shape: squircle) {
+  .score-card {
+    corner-shape: squircle;
+    border-radius: 24px;
+  }
+}

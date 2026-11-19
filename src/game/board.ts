@@ -35,6 +35,23 @@ export function clearSlot(state: BoardState, kind: CardKind, column: number): Bo
   return { ...state, [kind]: row }
 }
 
+/**
+ * How many slots hold the right card, given the solution: roomOf[s] is the
+ * room of suspect s and itemOf[s] the item they held.
+ */
+export function boardAccuracy(
+  state: BoardState,
+  roomOf: readonly number[],
+  itemOf: readonly number[],
+): { correct: number; total: number } {
+  let correct = 0
+  roomOf.forEach((room, s) => {
+    if (state.suspect[room] === s) correct++
+    if (state.item[room] === itemOf[s]) correct++
+  })
+  return { correct, total: roomOf.length * 2 }
+}
+
 /** Cards of a kind not yet on the board, in their original order. */
 export function trayCards(state: BoardState, kind: CardKind): number[] {
   const placed = new Set(state[kind])

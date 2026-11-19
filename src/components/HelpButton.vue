@@ -7,7 +7,7 @@ import AppModal from './AppModal.vue'
 const { t } = useI18n()
 const open = ref(false)
 
-const steps = ['ui.howToRules', 'ui.howToGoal', 'ui.howToNotebook'] as const
+const steps = ['ui.howToRules', 'ui.howToGoal', 'ui.howToNotebook', 'ui.howToBoard', 'ui.howToScore'] as const
 </script>
 
 <template>

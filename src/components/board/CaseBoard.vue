@@ -8,7 +8,9 @@ import { RotateCcw } from 'lucide-vue-next'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { playSound } from '../../audio'
-import { clearSlot, emptyBoard, placeCard, trayCards, type BoardState, type CardKind } from '../../game/board'
+import { useCaseSession } from '../../composables/caseSession'
+import { clearSlot, emptyBoard, placeCard, trayCards, type CardKind } from '../../game/board'
+import { boardConflicts, excludedColumns } from '../../game/notebook'
 import { SUSPECT_NAMES } from '../../game/data'
 import type { Case } from '../../game/types'
 import { itemText, roomText } from '../../i18n/caseText'
@@ -22,7 +24,7 @@ const DRAG_THRESHOLD = 6
 const props = defineProps<{ game: Case }>()
 const { t } = useI18n()
 
-const board = ref<BoardState>(emptyBoard(props.game.size))
+const { board, marks } = useCaseSession()
 const trays = computed(() => ({ suspect: trayCards(board.value, 'suspect'), item: trayCards(board.value, 'item') }))
 
 const columns = computed(() =>
@@ -153,6 +155,22 @@ function endDrag() {
 const isOver = (kind: CardKind, column: number) =>
   drag.over !== null && drag.over !== 'tray' && drag.over.kind === kind && drag.over.column === column
 
+// --- Notebook hints (read-only) ------------------------------------------------
+
+/** Placed cards that contradict the player's own notebook. */
+const conflicts = computed(() => boardConflicts(board.value, marks))
+
+/** The card being dragged, or else the selected one. */
+const activeCard = computed(() => (drag.active && drag.pending ? drag.pending : selected.value))
+
+/** Rooms where the active card would contradict the notebook. */
+const excluded = computed(() =>
+  activeCard.value ? excludedColumns(board.value, marks, activeCard.value.kind, activeCard.value.card) : null,
+)
+
+const isExcluded = (kind: CardKind, column: number) =>
+  activeCard.value?.kind === kind && Boolean(excluded.value?.[column])
+
 const isLifted = (kind: CardKind, card: number) =>
   drag.active && drag.pending?.kind === kind && drag.pending.card === card
 </script>
@@ -174,7 +192,7 @@ const isLifted = (kind: CardKind, card: number) =>
           v-for="kind in KINDS"
           :key="kind"
           class="board-slot"
-          :class="{ over: isOver(kind, col.index), armed: selected?.kind === kind }"
+          :class="{ over: isOver(kind, col.index), armed: selected?.kind === kind, excluded: isExcluded(kind, col.index) }"
           :data-slot-kind="kind"
           :data-slot-column="col.index"
         >
@@ -184,6 +202,7 @@ const isLifted = (kind: CardKind, card: number) =>
               v-bind="cardProps(kind, card)"
               :selected="isSelected(kind, card)"
               :lifted="isLifted(kind, card)"
+              :conflict="conflicts[kind][col.index]"
               @pointerdown="onPointerDown($event, { kind, card, from: col.index })"
               @click="onCardClick($event, { kind, card, from: col.index })"
             />

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  bestScore,
   currentStreak,
   emptyProgress,
   normalizeProgress,
@@ -12,7 +13,7 @@ import {
 const NOW = new Date('2026-11-19T12:00:00')
 
 function play(p: Progress, overrides: Partial<GameResult> = {}) {
-  return recordResult(p, { size: 5, won: true, seconds: 300, accusations: 2, daily: null, ...overrides }, NOW)
+  return recordResult(p, { size: 5, won: true, seconds: 300, accusations: 2, daily: null, boardCorrect: 4, boardTotal: 10, score: 500, ...overrides }, NOW)
 }
 
 describe('recordResult', () => {
@@ -23,7 +24,7 @@ describe('recordResult', () => {
     p = play(p, { won: false, accusations: 3 }).progress
     expect(p.solved).toBe(2)
     expect(p.failed).toBe(1)
-    expect(p.bySize[5]).toEqual({ solved: 2, failed: 1, bestSeconds: 150 })
+    expect(p.bySize[5]).toEqual({ solved: 2, failed: 1, bestSeconds: 150, bestScore: 500 })
   })
 
   it('does not mutate the previous progress', () => {
@@ -43,6 +44,36 @@ describe('recordResult', () => {
     expect(play(emptyProgress(), { size: 5, seconds: 55 }).unlocked).toEqual(
       expect.arrayContaining(['quickWit', 'lightning']),
     )
+  })
+})
+
+describe('case board and score', () => {
+  it('counts perfect boards on solved cases only', () => {
+    let p = play(emptyProgress(), { boardCorrect: 10 }).progress
+    p = play(p, { won: false, accusations: 3, boardCorrect: 10 }).progress
+    expect(p.perfectBoards).toBe(1)
+  })
+
+  it('unlocks board and score achievements', () => {
+    const { unlocked } = play(emptyProgress(), { boardCorrect: 10, score: 1000, accusations: 1 })
+    expect(unlocked).toEqual(expect.arrayContaining(['perfectBoard', 'masterpiece']))
+    expect(play(emptyProgress(), { score: 999 }).unlocked).not.toContain('masterpiece')
+  })
+
+  it('keeps the best score per size and overall', () => {
+    let p = play(emptyProgress(), { score: 640 }).progress
+    p = play(p, { score: 410 }).progress
+    p = play(p, { size: 4, score: 720 }).progress
+    expect(p.bySize[5].bestScore).toBe(640)
+    expect(bestScore(p)).toBe(720)
+    expect(bestScore(emptyProgress())).toBeNull()
+  })
+
+  it('loads older saves without scores', () => {
+    const old = normalizeProgress({ solved: 2, bySize: { 5: { solved: 2, failed: 0, bestSeconds: 90 } } })
+    expect(old.perfectBoards).toBe(0)
+    expect(bestScore(old)).toBeNull()
+    expect(play(old, { score: 300 }).progress.bySize[5].bestScore).toBe(300)
   })
 })
 

@@ -1,5 +1,27 @@
 import { describe, expect, it } from 'vitest'
-import { clearSlot, emptyBoard, placeCard, trayCards } from '../board'
+import { boardAccuracy, clearSlot, emptyBoard, placeCard, trayCards } from '../board'
+
+describe('boardAccuracy', () => {
+  // Suspect 0 in room 2 with item 1, suspect 1 in room 0 with item 2, suspect 2 in room 1 with item 0.
+  const roomOf = [2, 0, 1]
+  const itemOf = [1, 2, 0]
+
+  it('counts correct suspect and item slots', () => {
+    let board = placeCard(emptyBoard(3), 'suspect', 0, 2)
+    board = placeCard(board, 'item', 1, 2)
+    board = placeCard(board, 'suspect', 2, 0) // wrong
+    expect(boardAccuracy(board, roomOf, itemOf)).toEqual({ correct: 2, total: 6 })
+  })
+
+  it('scores a perfect board', () => {
+    let board = emptyBoard(3)
+    roomOf.forEach((room, s) => {
+      board = placeCard(board, 'suspect', s, room)
+      board = placeCard(board, 'item', itemOf[s], room)
+    })
+    expect(boardAccuracy(board, roomOf, itemOf)).toEqual({ correct: 6, total: 6 })
+  })
+})
 
 describe('case board', () => {
   it('starts empty with every card in the tray', () => {

@@ -2,7 +2,8 @@
 import { Lock, Star } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ACHIEVEMENTS, currentStreak, rankInfo } from '../progress/progress'
+import { ACHIEVEMENTS, bestScore, currentStreak, rankInfo } from '../progress/progress'
+import { MAX_SCORE } from '../progress/score'
 import { progress } from '../progress/store'
 import { dayKey, shiftDay } from '../utils/date'
 import { formatDuration } from '../utils/text'
@@ -19,10 +20,13 @@ const stats = computed(() => {
   const played = p.value.solved + p.value.failed
   const best = p.value.bySize[5]?.bestSeconds ?? null
   const streak = currentStreak(p.value, today)
+  const top = bestScore(p.value)
   return [
     { label: t('profile.solved'), value: String(p.value.solved) },
     { label: t('profile.successRate'), value: played ? `${Math.round((p.value.solved / played) * 100)} %` : '—' },
     { label: t('profile.firstTry'), value: String(p.value.firstTry) },
+    { label: t('profile.bestScore'), value: top === null ? '—' : `${top} / ${MAX_SCORE}` },
+    { label: t('profile.perfectBoards'), value: String(p.value.perfectBoards) },
     { label: t('profile.bestTime'), value: best === null ? '—' : formatDuration(best) },
     { label: t('profile.currentStreak'), value: t('profile.days', { n: streak }, streak) },
     { label: t('profile.bestStreak'), value: t('profile.days', { n: p.value.streak.best }, p.value.streak.best) },

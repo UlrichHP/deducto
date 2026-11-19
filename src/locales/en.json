@@ -46,7 +46,9 @@
     "back": "Back",
     "dailyWon": "Daily case · solved",
     "dailyLost": "Daily case · failed",
-    "achievementUnlocked": "Achievement unlocked"
+    "achievementUnlocked": "Achievement unlocked",
+    "howToBoard": "Under the clues, the case board helps you lay out your theory: drag each suspect and each item under a room. Rooms you crossed out in the notebook dim, and a warning flags any card that contradicts your notes.",
+    "howToScore": "Your score (out of 1000) rewards a first-try accusation (up to 500), a complete and correct board (up to 300) and speed (up to 200)."
   },
   "profile": {
     "title": "Profile",
@@ -67,15 +69,21 @@
     "locked": "Locked",
     "dailyWon": "solved",
     "dailyLost": "failed",
-    "dailyMissed": "not played"
+    "dailyMissed": "not played",
+    "bestScore": "Best score",
+    "perfectBoards": "Perfect boards"
   },
   "board": {
     "title": "Case board",
-    "hint": "Drag each suspect and item under the room where you think they were, or tap a card then a slot. The board only holds your hypotheses: it never says if you are right.",
-    "kinds": { "suspect": "Suspect", "item": "Item" },
+    "hint": "Drag each suspect and item under the room where you think they were, or tap a card then a slot. Rooms you crossed out in the notebook dim while you place a card, and a warning shows if a card contradicts your notes. The board never says whether you are right.",
+    "kinds": {
+      "suspect": "Suspect",
+      "item": "Item"
+    },
     "slot": "{kind} slot, {room}",
     "crimeScene": "Crime scene",
-    "reset": "Reset board"
+    "reset": "Reset board",
+    "conflict": "Contradicts your notebook"
   },
   "settings": {
     "title": "Settings",
@@ -95,19 +103,70 @@
     "commissioner": "Commissioner"
   },
   "achievements": {
-    "firstCase": { "title": "First case", "description": "Solve a case." },
-    "tenCases": { "title": "Bloodhound", "description": "Solve 10 cases." },
-    "fiftyCases": { "title": "Seasoned sleuth", "description": "Solve 50 cases." },
-    "hundredCases": { "title": "Living legend", "description": "Solve 100 cases." },
-    "sharpEye": { "title": "Eagle eye", "description": "Name the culprit on the first try." },
-    "flawless": { "title": "Flawless", "description": "Solve 10 cases on the first try." },
-    "lastChance": { "title": "Last chance", "description": "Name the culprit with your last accusation." },
-    "quickWit": { "title": "Quick wit", "description": "Solve a 5-suspect case in under 2 minutes." },
-    "lightning": { "title": "Lightning", "description": "Solve a 5-suspect case in under a minute." },
-    "dailyFirst": { "title": "Daily routine", "description": "Solve a daily case." },
-    "streak3": { "title": "Regular", "description": "Solve the daily case 3 days in a row." },
-    "streak7": { "title": "Perfect week", "description": "Solve the daily case 7 days in a row." },
-    "streak30": { "title": "Unshakeable", "description": "Solve the daily case 30 days in a row." }
+    "firstCase": {
+      "title": "First case",
+      "description": "Solve a case."
+    },
+    "tenCases": {
+      "title": "Bloodhound",
+      "description": "Solve 10 cases."
+    },
+    "fiftyCases": {
+      "title": "Seasoned sleuth",
+      "description": "Solve 50 cases."
+    },
+    "hundredCases": {
+      "title": "Living legend",
+      "description": "Solve 100 cases."
+    },
+    "sharpEye": {
+      "title": "Eagle eye",
+      "description": "Name the culprit on the first try."
+    },
+    "flawless": {
+      "title": "Flawless",
+      "description": "Solve 10 cases on the first try."
+    },
+    "lastChance": {
+      "title": "Last chance",
+      "description": "Name the culprit with your last accusation."
+    },
+    "quickWit": {
+      "title": "Quick wit",
+      "description": "Solve a 5-suspect case in under 2 minutes."
+    },
+    "lightning": {
+      "title": "Lightning",
+      "description": "Solve a 5-suspect case in under a minute."
+    },
+    "dailyFirst": {
+      "title": "Daily routine",
+      "description": "Solve a daily case."
+    },
+    "streak3": {
+      "title": "Regular",
+      "description": "Solve the daily case 3 days in a row."
+    },
+    "streak7": {
+      "title": "Perfect week",
+      "description": "Solve the daily case 7 days in a row."
+    },
+    "streak30": {
+      "title": "Unshakeable",
+      "description": "Solve the daily case 30 days in a row."
+    },
+    "perfectBoard": {
+      "title": "Reconstruction",
+      "description": "Solve a case with every card right on the board."
+    },
+    "architect": {
+      "title": "Architect",
+      "description": "Solve 10 cases with a perfect board."
+    },
+    "masterpiece": {
+      "title": "Masterpiece",
+      "description": "Score 1000 points on a case."
+    }
   },
   "roles": {
     "adele": "the ambitious niece",
@@ -119,28 +178,82 @@
     "gaspard": "the family doctor"
   },
   "rooms": {
-    "observatory": { "label": "Observatory", "phrase": "the observatory" },
-    "greenhouse": { "label": "Greenhouse", "phrase": "the greenhouse" },
-    "wineCellar": { "label": "Wine cellar", "phrase": "the wine cellar" },
-    "smokingRoom": { "label": "Smoking room", "phrase": "the smoking room" },
-    "gallery": { "label": "Gallery", "phrase": "the gallery" },
-    "chapel": { "label": "Chapel", "phrase": "the chapel" },
-    "library": { "label": "Library", "phrase": "the library" }
+    "observatory": {
+      "label": "Observatory",
+      "phrase": "the observatory"
+    },
+    "greenhouse": {
+      "label": "Greenhouse",
+      "phrase": "the greenhouse"
+    },
+    "wineCellar": {
+      "label": "Wine cellar",
+      "phrase": "the wine cellar"
+    },
+    "smokingRoom": {
+      "label": "Smoking room",
+      "phrase": "the smoking room"
+    },
+    "gallery": {
+      "label": "Gallery",
+      "phrase": "the gallery"
+    },
+    "chapel": {
+      "label": "Chapel",
+      "phrase": "the chapel"
+    },
+    "library": {
+      "label": "Library",
+      "phrase": "the library"
+    }
   },
   "items": {
-    "poker": { "label": "Poker", "phrase": "the fire poker" },
-    "arsenic": { "label": "Arsenic", "phrase": "the vial of arsenic" },
-    "letterOpener": { "label": "Letter opener", "phrase": "the letter opener" },
-    "scarf": { "label": "Scarf", "phrase": "the silk scarf" },
-    "statuette": { "label": "Statuette", "phrase": "the bronze statuette" },
-    "pistol": { "label": "Pistol", "phrase": "the duelling pistol" },
-    "cord": { "label": "Cord", "phrase": "the cord" }
+    "poker": {
+      "label": "Poker",
+      "phrase": "the fire poker"
+    },
+    "arsenic": {
+      "label": "Arsenic",
+      "phrase": "the vial of arsenic"
+    },
+    "letterOpener": {
+      "label": "Letter opener",
+      "phrase": "the letter opener"
+    },
+    "scarf": {
+      "label": "Scarf",
+      "phrase": "the silk scarf"
+    },
+    "statuette": {
+      "label": "Statuette",
+      "phrase": "the bronze statuette"
+    },
+    "pistol": {
+      "label": "Pistol",
+      "phrase": "the duelling pistol"
+    },
+    "cord": {
+      "label": "Cord",
+      "phrase": "the cord"
+    }
   },
   "victims": {
-    "count": { "name": "Count Valmorel", "gender": "m" },
-    "baroness": { "name": "the Baroness of Aubrac", "gender": "f" },
-    "professor": { "name": "Professor Lindqvist", "gender": "m" },
-    "general": { "name": "General Ostrova", "gender": "f" }
+    "count": {
+      "name": "Count Valmorel",
+      "gender": "m"
+    },
+    "baroness": {
+      "name": "the Baroness of Aubrac",
+      "gender": "f"
+    },
+    "professor": {
+      "name": "Professor Lindqvist",
+      "gender": "m"
+    },
+    "general": {
+      "name": "General Ostrova",
+      "gender": "f"
+    }
   },
   "report": {
     "m": "{victim} was found dead in {room}, killed with {weapon}.",
@@ -168,5 +281,13 @@
       "a": "{who} was either in {room} or in {room2}.",
       "b": "One thing is certain: {who} was in {room} or in {room2}."
     }
+  },
+  "score": {
+    "accusation": "Accusation",
+    "board": "Case board ({correct}/{total})",
+    "time": "Time ({time})",
+    "perfectBoard": "Perfect reconstruction!",
+    "rowRight": "correct on your board",
+    "rowWrong": "not correct on your board"
   }
 }

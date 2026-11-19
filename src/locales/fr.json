@@ -46,7 +46,9 @@
     "back": "Retour",
     "dailyWon": "Enquête du jour · résolue",
     "dailyLost": "Enquête du jour · échouée",
-    "achievementUnlocked": "Succès débloqué"
+    "achievementUnlocked": "Succès débloqué",
+    "howToBoard": "Sous les indices, le tableau d'enquête vous aide à assembler votre hypothèse : glissez chaque suspect et chaque objet sous une pièce. Les pièces rayées dans le carnet s'assombrissent, et une alerte signale toute carte qui contredit vos notes.",
+    "howToScore": "Votre score (sur 1000) récompense une accusation du premier coup (jusqu'à 500), un tableau complet et juste (jusqu'à 300) et la rapidité (jusqu'à 200)."
   },
   "profile": {
     "title": "Profil",
@@ -67,15 +69,21 @@
     "locked": "Verrouillé",
     "dailyWon": "résolue",
     "dailyLost": "échouée",
-    "dailyMissed": "non jouée"
+    "dailyMissed": "non jouée",
+    "bestScore": "Meilleur score",
+    "perfectBoards": "Tableaux parfaits"
   },
   "board": {
     "title": "Tableau d'enquête",
-    "hint": "Glissez chaque suspect et chaque objet sous la pièce où vous pensez qu'il était, ou touchez une carte puis une case. Le tableau ne contient que vos hypothèses : il ne dit jamais si vous avez raison.",
-    "kinds": { "suspect": "Suspect", "item": "Objet" },
+    "hint": "Glissez chaque suspect et chaque objet sous la pièce où vous pensez qu'il était, ou touchez une carte puis une case. Les pièces rayées dans votre carnet s'assombrissent pendant le placement, et une alerte s'affiche si une carte contredit vos notes. Le tableau ne dit jamais si vous avez raison.",
+    "kinds": {
+      "suspect": "Suspect",
+      "item": "Objet"
+    },
     "slot": "Case {kind}, {room}",
     "crimeScene": "Lieu du crime",
-    "reset": "Réinitialiser le tableau"
+    "reset": "Réinitialiser le tableau",
+    "conflict": "Contredit votre carnet"
   },
   "settings": {
     "title": "Réglages",
@@ -95,19 +103,70 @@
     "commissioner": "Commissaire"
   },
   "achievements": {
-    "firstCase": { "title": "Première affaire", "description": "Résoudre une enquête." },
-    "tenCases": { "title": "Fin limier", "description": "Résoudre 10 enquêtes." },
-    "fiftyCases": { "title": "Vieux routier", "description": "Résoudre 50 enquêtes." },
-    "hundredCases": { "title": "Légende vivante", "description": "Résoudre 100 enquêtes." },
-    "sharpEye": { "title": "Œil de lynx", "description": "Trouver le coupable du premier coup." },
-    "flawless": { "title": "Sans bavure", "description": "Résoudre 10 enquêtes du premier coup." },
-    "lastChance": { "title": "In extremis", "description": "Trouver le coupable à la dernière accusation." },
-    "quickWit": { "title": "Esprit vif", "description": "Résoudre une enquête à 5 suspects en moins de 2 minutes." },
-    "lightning": { "title": "Éclair de génie", "description": "Résoudre une enquête à 5 suspects en moins d'une minute." },
-    "dailyFirst": { "title": "Rendez-vous quotidien", "description": "Résoudre une enquête du jour." },
-    "streak3": { "title": "Assidu", "description": "Résoudre l'enquête du jour 3 jours de suite." },
-    "streak7": { "title": "Semaine parfaite", "description": "Résoudre l'enquête du jour 7 jours de suite." },
-    "streak30": { "title": "Inébranlable", "description": "Résoudre l'enquête du jour 30 jours de suite." }
+    "firstCase": {
+      "title": "Première affaire",
+      "description": "Résoudre une enquête."
+    },
+    "tenCases": {
+      "title": "Fin limier",
+      "description": "Résoudre 10 enquêtes."
+    },
+    "fiftyCases": {
+      "title": "Vieux routier",
+      "description": "Résoudre 50 enquêtes."
+    },
+    "hundredCases": {
+      "title": "Légende vivante",
+      "description": "Résoudre 100 enquêtes."
+    },
+    "sharpEye": {
+      "title": "Œil de lynx",
+      "description": "Trouver le coupable du premier coup."
+    },
+    "flawless": {
+      "title": "Sans bavure",
+      "description": "Résoudre 10 enquêtes du premier coup."
+    },
+    "lastChance": {
+      "title": "In extremis",
+      "description": "Trouver le coupable à la dernière accusation."
+    },
+    "quickWit": {
+      "title": "Esprit vif",
+      "description": "Résoudre une enquête à 5 suspects en moins de 2 minutes."
+    },
+    "lightning": {
+      "title": "Éclair de génie",
+      "description": "Résoudre une enquête à 5 suspects en moins d'une minute."
+    },
+    "dailyFirst": {
+      "title": "Rendez-vous quotidien",
+      "description": "Résoudre une enquête du jour."
+    },
+    "streak3": {
+      "title": "Assidu",
+      "description": "Résoudre l'enquête du jour 3 jours de suite."
+    },
+    "streak7": {
+      "title": "Semaine parfaite",
+      "description": "Résoudre l'enquête du jour 7 jours de suite."
+    },
+    "streak30": {
+      "title": "Inébranlable",
+      "description": "Résoudre l'enquête du jour 30 jours de suite."
+    },
+    "perfectBoard": {
+      "title": "Reconstitution",
+      "description": "Résoudre une enquête avec toutes les cartes bien placées sur le tableau."
+    },
+    "architect": {
+      "title": "Architecte",
+      "description": "Résoudre 10 enquêtes avec un tableau parfait."
+    },
+    "masterpiece": {
+      "title": "Chef-d'œuvre",
+      "description": "Obtenir 1000 points sur une enquête."
+    }
   },
   "roles": {
     "adele": "la nièce ambitieuse",
@@ -119,28 +178,82 @@
     "gaspard": "le médecin de famille"
   },
   "rooms": {
-    "observatory": { "label": "Observatoire", "phrase": "l'observatoire" },
-    "greenhouse": { "label": "Serre", "phrase": "la serre" },
-    "wineCellar": { "label": "Cave à vin", "phrase": "la cave à vin" },
-    "smokingRoom": { "label": "Fumoir", "phrase": "le fumoir" },
-    "gallery": { "label": "Galerie", "phrase": "la galerie" },
-    "chapel": { "label": "Chapelle", "phrase": "la chapelle" },
-    "library": { "label": "Bibliothèque", "phrase": "la bibliothèque" }
+    "observatory": {
+      "label": "Observatoire",
+      "phrase": "l'observatoire"
+    },
+    "greenhouse": {
+      "label": "Serre",
+      "phrase": "la serre"
+    },
+    "wineCellar": {
+      "label": "Cave à vin",
+      "phrase": "la cave à vin"
+    },
+    "smokingRoom": {
+      "label": "Fumoir",
+      "phrase": "le fumoir"
+    },
+    "gallery": {
+      "label": "Galerie",
+      "phrase": "la galerie"
+    },
+    "chapel": {
+      "label": "Chapelle",
+      "phrase": "la chapelle"
+    },
+    "library": {
+      "label": "Bibliothèque",
+      "phrase": "la bibliothèque"
+    }
   },
   "items": {
-    "poker": { "label": "Tisonnier", "phrase": "le tisonnier" },
-    "arsenic": { "label": "Arsenic", "phrase": "la fiole d'arsenic" },
-    "letterOpener": { "label": "Coupe-papier", "phrase": "le coupe-papier" },
-    "scarf": { "label": "Foulard", "phrase": "le foulard de soie" },
-    "statuette": { "label": "Statuette", "phrase": "la statuette de bronze" },
-    "pistol": { "label": "Pistolet", "phrase": "le pistolet de duel" },
-    "cord": { "label": "Cordelette", "phrase": "la cordelette" }
+    "poker": {
+      "label": "Tisonnier",
+      "phrase": "le tisonnier"
+    },
+    "arsenic": {
+      "label": "Arsenic",
+      "phrase": "la fiole d'arsenic"
+    },
+    "letterOpener": {
+      "label": "Coupe-papier",
+      "phrase": "le coupe-papier"
+    },
+    "scarf": {
+      "label": "Foulard",
+      "phrase": "le foulard de soie"
+    },
+    "statuette": {
+      "label": "Statuette",
+      "phrase": "la statuette de bronze"
+    },
+    "pistol": {
+      "label": "Pistolet",
+      "phrase": "le pistolet de duel"
+    },
+    "cord": {
+      "label": "Cordelette",
+      "phrase": "la cordelette"
+    }
   },
   "victims": {
-    "count": { "name": "le comte de Valmorel", "gender": "m" },
-    "baroness": { "name": "la baronne d'Aubrac", "gender": "f" },
-    "professor": { "name": "le professeur Lindqvist", "gender": "m" },
-    "general": { "name": "la générale Ostrova", "gender": "f" }
+    "count": {
+      "name": "le comte de Valmorel",
+      "gender": "m"
+    },
+    "baroness": {
+      "name": "la baronne d'Aubrac",
+      "gender": "f"
+    },
+    "professor": {
+      "name": "le professeur Lindqvist",
+      "gender": "m"
+    },
+    "general": {
+      "name": "la générale Ostrova",
+      "gender": "f"
+    }
   },
   "report": {
     "m": "{victim} a été retrouvé sans vie dans {room}, tué avec {weapon}.",
@@ -168,5 +281,13 @@
       "a": "{who} était soit dans {room}, soit dans {room2}.",
       "b": "Une chose est sûre : {who} était dans {room} ou dans {room2}."
     }
+  },
+  "score": {
+    "accusation": "Accusation",
+    "board": "Tableau d'enquête ({correct}/{total})",
+    "time": "Temps ({time})",
+    "perfectBoard": "Reconstitution parfaite !",
+    "rowRight": "correct sur votre tableau",
+    "rowWrong": "incorrect sur votre tableau"
   }
 }
