@@ -894,3 +894,177 @@ button {
 .profile-rank {
   letter-spacing: 0.05em;
 }
+
+/* --- Case board ----------------------------------------------------------------- */
+
+.board {
+  margin-top: 8px;
+}
+.board .hint {
+  margin: 0 0 12px;
+}
+.board-grid,
+.board-tray {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 6px;
+}
+.board-column {
+  display: grid;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 6px;
+  min-width: 0;
+}
+.board-room {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 4px;
+  min-height: 64px;
+  padding: 8px 1px;
+  border-radius: 10px;
+  background: var(--panel-2);
+  font-size: 0.6rem;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--text);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.board-column.crime .board-room {
+  box-shadow: inset 0 0 0 1.5px var(--no-text);
+}
+.board-crime {
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--no-text);
+}
+.board-slot {
+  display: grid;
+  min-height: 92px;
+  border: 1.5px dashed rgb(255 255 255 / 0.28);
+  border-radius: 10px;
+  transition: border-color 0.12s, background 0.12s;
+}
+.board-slot.armed {
+  border-color: rgb(224 176 74 / 0.6);
+}
+.board-slot.over {
+  border-style: solid;
+  border-color: var(--accent);
+  background: rgb(224 176 74 / 0.12);
+}
+.board-slot-empty {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.35);
+  cursor: pointer;
+}
+.board-tray {
+  min-height: 96px;
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgb(0 0 0 / 0.25);
+  transition: background 0.12s;
+}
+.board-tray.over {
+  background: rgb(224 176 74 / 0.1);
+}
+.board-card {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 88px;
+  padding: 6px 3px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 8px;
+  background: linear-gradient(160deg, #3b3646, #2b2833);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+  color: var(--accent);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.board-card.is-suspect {
+  padding-top: 4px;
+  color: var(--text);
+}
+.board-card .portrait {
+  width: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #5b5468, #2a2632 70%);
+}
+.board-card-label {
+  max-width: 100%;
+  font-size: 0.64rem;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.board-card.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.board-card.lifted {
+  opacity: 0.3;
+}
+.board-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.board-ghost {
+  position: fixed;
+  z-index: 20;
+  width: 64px;
+  pointer-events: none;
+  transform: translate(-50%, -60%) rotate(-4deg) scale(1.08);
+}
+.board-ghost .board-card {
+  width: 100%;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.55);
+}
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Portrait silhouettes */
+.portrait .ink,
+.portrait .ink-on-accent {
+  fill: #0d0c11;
+}
+.portrait .accent {
+  fill: var(--accent);
+}
+.portrait .accent-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+@supports (corner-shape: squircle) {
+  .board-room,
+  .board-slot,
+  .board-tray,
+  .board-card {
+    corner-shape: squircle;
+    border-radius: 16px;
+  }
+}

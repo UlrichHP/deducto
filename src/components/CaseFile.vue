@@ -3,6 +3,7 @@ import { computed, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Case } from '../game/types'
 import { clueText, reportText, ruleText, suspectName } from '../i18n/caseText'
+import CaseBoard from './board/CaseBoard.vue'
 
 const props = defineProps<{ game: Case }>()
 const { t } = useI18n()
@@ -45,5 +46,7 @@ function toggle(index: number) {
         </button>
       </li>
     </ol>
+
+    <CaseBoard :game="game" />
   </section>
 </template>

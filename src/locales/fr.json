@@ -69,6 +69,14 @@
     "dailyLost": "échouée",
     "dailyMissed": "non jouée"
   },
+  "board": {
+    "title": "Tableau d'enquête",
+    "hint": "Glissez chaque suspect et chaque objet sous la pièce où vous pensez qu'il était, ou touchez une carte puis une case. Le tableau ne contient que vos hypothèses : il ne dit jamais si vous avez raison.",
+    "kinds": { "suspect": "Suspect", "item": "Objet" },
+    "slot": "Case {kind}, {room}",
+    "crimeScene": "Lieu du crime",
+    "reset": "Réinitialiser le tableau"
+  },
   "settings": {
     "title": "Réglages",
     "open": "Ouvrir les réglages",

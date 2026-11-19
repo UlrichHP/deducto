@@ -1,7 +1,7 @@
 /** Sound effects synthesized on the fly: no audio files to download. */
 import { getAudio, noiseBuffer, type AudioGraph } from './engine'
 
-export const SOUNDS = ['tap', 'pen', 'strike', 'wrong', 'win', 'lose', 'achievement'] as const
+export const SOUNDS = ['tap', 'pen', 'strike', 'card', 'wrong', 'win', 'lose', 'achievement'] as const
 export type SoundName = (typeof SOUNDS)[number]
 
 interface ToneOptions {
@@ -65,6 +65,11 @@ const RECIPES: Record<SoundName, (g: AudioGraph, t: number) => void> = {
   },
   // Line drawn through a clue.
   strike: (g, t) => burst(g, { start: t, duration: 0.18, gain: 0.25, filter: 'bandpass', freq: 1500, to: 4500, q: 1.2 }),
+  // Card slid onto the table.
+  card: (g, t) => {
+    burst(g, { start: t, duration: 0.09, gain: 0.35, filter: 'bandpass', freq: 2200, to: 900, q: 0.8 })
+    tone(g, { freq: 180, to: 120, start: t + 0.06, duration: 0.08, gain: 0.12 })
+  },
   // Rubber stamp: false lead.
   wrong: (g, t) => {
     burst(g, { start: t, duration: 0.12, gain: 0.5, filter: 'lowpass', freq: 400 })

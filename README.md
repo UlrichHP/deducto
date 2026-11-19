@@ -6,6 +6,8 @@ A murder has been committed in a manor. Each suspect was in a different room and
 
 Every case is generated from a seed and has exactly one solution. The **daily case** uses the date as its seed, so everyone gets the same puzzle on a given day.
 
+Under the clues, a **case board** lets the player drag suspect and item cards under each room (or tap a card, then a slot) to lay out their hypothesis. It never says whether a placement is right.
+
 Progress is kept on the device: a profile screen shows the player's rank, stats, daily-case streak and achievements. Sound effects and dreamlike noir background music are synthesized in the browser with the Web Audio API, so there are no audio files to download.
 
 ## Stack
@@ -36,6 +38,7 @@ src/
   game/                 pure game logic, no Vue, no text
     data.ts             content pools as language-neutral ids
     generator.ts        case generator and solver
+    board.ts            case board placements (place, swap, clear)
     rng.ts              seeded PRNG (mulberry32) and string hash
     types.ts            Case and Clue types
     __tests__/          generator tests
@@ -63,6 +66,8 @@ src/
     NoteBook.vue        suspect × room and suspect × item grids
     ProfileScreen.vue   rank, stats, last 7 daily cases, achievements
     SettingsButton.vue  gear button opening SettingsModal.vue (language, music, effects)
+    HelpButton.vue      "?" button opening the how-to-play modal
+    board/              case board: CaseBoard, BoardCard, SuspectPortrait, icons
     AppModal.vue, LanguageSwitch.vue
   utils/                string and date helpers
   style.css             design tokens and all styles (mobile first)

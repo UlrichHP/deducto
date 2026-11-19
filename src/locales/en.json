@@ -69,6 +69,14 @@
     "dailyLost": "failed",
     "dailyMissed": "not played"
   },
+  "board": {
+    "title": "Case board",
+    "hint": "Drag each suspect and item under the room where you think they were, or tap a card then a slot. The board only holds your hypotheses: it never says if you are right.",
+    "kinds": { "suspect": "Suspect", "item": "Item" },
+    "slot": "{kind} slot, {room}",
+    "crimeScene": "Crime scene",
+    "reset": "Reset board"
+  },
   "settings": {
     "title": "Settings",
     "open": "Open settings",
