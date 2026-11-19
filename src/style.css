@@ -1284,3 +1284,12 @@ button {
 .notebook > .btn-wide {
   margin-top: 36px;
 }
+
+/* Reminder in the accusation modal that the board earns points */
+.accuse-board {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--panel-2);
+  font-size: 0.85rem;
+  color: var(--muted);
+}

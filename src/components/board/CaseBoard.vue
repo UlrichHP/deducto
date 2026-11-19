@@ -14,6 +14,7 @@ import { boardConflicts, excludedColumns } from '../../game/notebook'
 import { SUSPECT_NAMES } from '../../game/data'
 import type { Case } from '../../game/types'
 import { itemText, roomText } from '../../i18n/caseText'
+import { BOARD_POINTS } from '../../progress/score'
 import BoardCard from './BoardCard.vue'
 import RoomHeader from './RoomHeader.vue'
 import { ITEM_ICONS, ROOM_ICONS } from './icons'
@@ -178,7 +179,9 @@ const isLifted = (kind: CardKind, card: number) =>
 
 <template>
   <section class="board" @pointermove="onPointerMove" @pointerup="onPointerUp" @pointercancel="endDrag">
-    <h2 class="section-title">{{ t('board.title') }}</h2>
+    <h2 class="section-title">
+      {{ t('board.title') }} <small>{{ t('board.points', { points: BOARD_POINTS }) }}</small>
+    </h2>
     <p class="hint">{{ t('board.hint') }}</p>
 
     <div class="board-grid" :style="{ '--cols': game.size }">

@@ -24,7 +24,7 @@ export const MAX_SCORE = 1000
 
 /** Points by number of accusations used (index 1 = first try). */
 const ACCUSATION_POINTS = [0, 500, 300, 100]
-const BOARD_POINTS = 300
+export const BOARD_POINTS = 300
 const TIME_POINTS = 200
 
 /** Target solving time in seconds; slower solves earn less, down to 0 at 4× the target. */

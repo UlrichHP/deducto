@@ -10,7 +10,7 @@ import { boardAccuracy } from '../game/board'
 import type { Case } from '../game/types'
 import { suspectName } from '../i18n/caseText'
 import type { AchievementId } from '../progress/progress'
-import { MAX_SCORE, scoreGame, type Score } from '../progress/score'
+import { BOARD_POINTS, MAX_SCORE, scoreGame, type Score } from '../progress/score'
 import { recordGame } from '../progress/store'
 import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
@@ -74,8 +74,11 @@ function accuse(index: number) {
   modal.value = { kind: 'wrong', suspect: index }
 }
 
-/** The player put at least one card on the board. */
-const boardUsed = computed(() => Object.values(session.board.value).some((row) => row.some((card) => card !== null)))
+/** Cards the player has put on the board. */
+const boardPlaced = computed(() =>
+  Object.values(session.board.value).reduce((n, row) => n + row.filter((card) => card !== null).length, 0),
+)
+const boardUsed = computed(() => boardPlaced.value > 0)
 
 function end(won: boolean) {
   finished.value = true
@@ -134,6 +137,9 @@ function end(won: boolean) {
     <AppModal v-if="modal" :title="modalTitle" @close="modal = null">
       <template v-if="modal.kind === 'accuse'">
         <p class="muted">{{ t('ui.accusationsLeft', { n: accusationsLeft }, accusationsLeft) }}</p>
+        <p class="accuse-board">
+          {{ t('ui.accuseBoard', { placed: boardPlaced, total: game.size * 2, points: BOARD_POINTS }) }}
+        </p>
         <button v-for="(id, i) in game.suspects" :key="id" class="btn" data-sfx="none" @click="accuse(i)">
           {{ suspectName(game, i) }}
         </button>
