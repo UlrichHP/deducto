@@ -16,6 +16,7 @@ import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
 import AchievementItem from './AchievementItem.vue'
 import AppModal from './AppModal.vue'
+import BoardCard from './board/BoardCard.vue'
 import SolutionBoard from './board/SolutionBoard.vue'
 import CaseFile from './CaseFile.vue'
 import HelpButton from './HelpButton.vue'
@@ -40,6 +41,20 @@ const accusationsLeft = ref(MAX_ACCUSATIONS)
 const finished = ref(false)
 const modal = ref<Modal | null>(null)
 const unlocked = ref<AchievementId[]>([])
+/** Suspect picked in the accusation modal, waiting for confirmation. */
+const picked = ref<number | null>(null)
+/** Suspects already wrongly accused: they cannot be picked again. */
+const cleared = ref<number[]>([])
+
+function openAccuse() {
+  picked.value = null
+  modal.value = { kind: 'accuse' }
+}
+
+function pick(index: number) {
+  if (cleared.value.includes(index)) return
+  picked.value = picked.value === index ? null : index
+}
 const startedAt = Date.now()
 
 const title = computed(() =>
@@ -68,6 +83,7 @@ const modalTitle = computed(() => {
 
 function accuse(index: number) {
   if (index === props.game.culprit) return end(true)
+  cleared.value.push(index)
   accusationsLeft.value--
   if (accusationsLeft.value <= 0) return end(false)
   playSound('wrong')
@@ -126,7 +142,7 @@ function end(won: boolean) {
     </div>
 
     <footer class="game-footer">
-      <button v-if="!finished" class="btn btn-accent btn-big" @click="modal = { kind: 'accuse' }">
+      <button v-if="!finished" class="btn btn-accent btn-big" @click="openAccuse">
         {{ t('ui.accuse') }}
       </button>
       <button v-else class="btn btn-accent btn-big" @click="emit('newCase', game.size)">
@@ -140,8 +156,28 @@ function end(won: boolean) {
         <p class="accuse-board">
           {{ t('ui.accuseBoard', { placed: boardPlaced, total: game.size * 2, points: BOARD_POINTS }) }}
         </p>
-        <button v-for="(id, i) in game.suspects" :key="id" class="btn" data-sfx="none" @click="accuse(i)">
-          {{ suspectName(game, i) }}
+        <div class="accuse-grid" :style="{ '--cols': game.size }">
+          <BoardCard
+            v-for="(id, i) in game.suspects"
+            :key="id"
+            :label="suspectName(game, i)"
+            :suspect="id"
+            :selected="picked === i"
+            :status="cleared.includes(i) ? 'wrong' : undefined"
+            :class="{ cleared: cleared.includes(i) }"
+            :aria-disabled="cleared.includes(i)"
+            :title="cleared.includes(i) ? t('ui.alreadyCleared') : undefined"
+            data-sfx="tap"
+            @click="pick(i)"
+          />
+        </div>
+        <button
+          class="btn btn-accent"
+          data-sfx="none"
+          :disabled="picked === null"
+          @click="picked !== null && accuse(picked)"
+        >
+          {{ picked === null ? t('ui.pickSuspect') : t('ui.accuseConfirm', { name: suspectName(game, picked) }) }}
         </button>
         <button class="btn btn-ghost" @click="modal = null">{{ t('ui.cancel') }}</button>
       </template>

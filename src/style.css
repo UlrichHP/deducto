@@ -235,6 +235,7 @@ button {
 .game-footer {
   position: sticky;
   bottom: 0;
+  z-index: 5;
   padding-top: 16px;
   background: linear-gradient(transparent, var(--bg) 35%);
 }
@@ -1308,4 +1309,30 @@ button {
   text-transform: none;
   vertical-align: 0.1em;
   color: var(--accent);
+}
+
+/* Accusation: pick a suspect card, then confirm */
+.accuse-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 6px;
+  margin: 4px 0 8px;
+}
+.accuse-grid .board-card {
+  cursor: pointer;
+  touch-action: auto;
+}
+.accuse-grid .board-card.selected {
+  border-color: var(--accent);
+  background: linear-gradient(160deg, #4a4236, #2f2a24);
+  transform: translateY(-3px);
+}
+.accuse-grid .board-card.cleared {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
 }

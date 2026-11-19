@@ -50,7 +50,10 @@
     "howToBoard": "Under the clues, the case board helps you lay out your theory: drag each suspect and each item under a room. Rooms you crossed out in the notebook dim, and a warning flags any card that contradicts your notes.",
     "howToScore": "Your score (out of 1000) rewards a first-try accusation (up to 500), a complete and correct board (up to 300) and speed (up to 200).",
     "solvedIn": "Solved in {time}",
-    "accuseBoard": "Case board: {placed}/{total} cards placed. A complete and correct board earns up to {points} points."
+    "accuseBoard": "Case board: {placed}/{total} cards placed. A complete and correct board earns up to {points} points.",
+    "pickSuspect": "Choose a suspect",
+    "accuseConfirm": "Accuse {name}",
+    "alreadyCleared": "already cleared"
   },
   "profile": {
     "title": "Profile",

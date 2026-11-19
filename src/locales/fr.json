@@ -50,7 +50,10 @@
     "howToBoard": "Sous les indices, le tableau d'enquête vous aide à assembler votre hypothèse : glissez chaque suspect et chaque objet sous une pièce. Les pièces rayées dans le carnet s'assombrissent, et une alerte signale toute carte qui contredit vos notes.",
     "howToScore": "Votre score (sur 1000) récompense une accusation du premier coup (jusqu'à 500), un tableau complet et juste (jusqu'à 300) et la rapidité (jusqu'à 200).",
     "solvedIn": "Résolue en {time}",
-    "accuseBoard": "Tableau d'enquête : {placed}/{total} cartes placées. Un tableau complet et juste rapporte jusqu'à {points} points."
+    "accuseBoard": "Tableau d'enquête : {placed}/{total} cartes placées. Un tableau complet et juste rapporte jusqu'à {points} points.",
+    "pickSuspect": "Choisissez un suspect",
+    "accuseConfirm": "Accuser {name}",
+    "alreadyCleared": "déjà innocenté"
   },
   "profile": {
     "title": "Profil",
