@@ -1267,3 +1267,20 @@ button {
   display: inline-block;
   vertical-align: -0.2em;
 }
+
+/* --- Notebook spacing (same rhythm as the case file and profile) ---------------- */
+
+.notebook > .hint {
+  margin: 20px 0 0;
+}
+.notebook > div > .section-title {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+.notebook > div:first-of-type > .section-title {
+  margin-top: 28px;
+}
+.notebook > .btn-wide {
+  margin-top: 36px;
+}
