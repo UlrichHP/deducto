@@ -620,20 +620,20 @@ button {
   display: grid;
   flex: none;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--accent);
   font-size: 0;
   color: var(--bg);
 }
 .achievement-badge svg {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
 }
 .achievement.locked .achievement-badge svg {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
 }
 .achievement.locked {
   opacity: 0.5;
@@ -655,7 +655,7 @@ button {
   white-space: nowrap;
 }
 
-/* --- Sound controls --------------------------------------------------------- */
+/* --- Settings -------------------------------------------------------------- */
 
 .toolbar {
   display: flex;
@@ -680,22 +680,63 @@ button {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-.audio-settings {
-  padding: 4px 16px 16px;
-  border-radius: 16px;
-  background: var(--panel);
+.settings {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+  text-align: left;
 }
-.audio-settings-head {
+.setting-block,
+.settings > .setting-row {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--panel-2);
+}
+.setting-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
 }
-.audio-settings-head .section-title {
-  margin: 12px 0;
+.settings .lang-switch {
+  background: var(--bg);
+}
+.switch {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.switch[aria-checked='true'] {
+  background: var(--yes);
+}
+.switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 0.15s;
+}
+.switch[aria-checked='true'] .switch-thumb {
+  transform: translateX(22px);
+}
+.switch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .slider {
   display: grid;
-  grid-template-columns: 1fr 2fr 3ch;
+  grid-template-columns: 1fr 3ch;
   align-items: center;
   gap: 12px;
   min-height: 44px;
@@ -705,7 +746,7 @@ button {
   accent-color: var(--accent);
 }
 .slider input:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
 }
 .slider output {
   text-align: right;

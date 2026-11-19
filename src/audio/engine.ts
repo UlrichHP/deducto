@@ -40,10 +40,10 @@ export function unlockAudio(): AudioGraph | null {
 
 function applyVolumes() {
   if (!graph) return
-  const { muted, music, sfx } = audioSettings.value
+  const { musicOn, music, sfxOn, sfx } = audioSettings.value
   const now = graph.ctx.currentTime
-  graph.music.gain.setTargetAtTime(muted ? 0 : music * MUSIC_LEVEL, now, 0.05)
-  graph.sfx.gain.setTargetAtTime(muted ? 0 : sfx, now, 0.02)
+  graph.music.gain.setTargetAtTime(musicOn ? music * MUSIC_LEVEL : 0, now, 0.05)
+  graph.sfx.gain.setTargetAtTime(sfxOn ? sfx : 0, now, 0.02)
 }
 
 watch(audioSettings, applyVolumes, { deep: true })

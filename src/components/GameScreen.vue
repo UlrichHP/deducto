@@ -13,9 +13,8 @@ import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
 import AppModal from './AppModal.vue'
 import CaseFile from './CaseFile.vue'
-import LanguageSwitch from './LanguageSwitch.vue'
+import SettingsButton from './SettingsButton.vue'
 import NoteBook from './NoteBook.vue'
-import SoundToggle from './SoundToggle.vue'
 import { playSound } from '../audio'
 
 const MAX_ACCUSATIONS = 3
@@ -89,8 +88,7 @@ function end(won: boolean) {
     <header class="game-header">
       <h1>{{ title }}</h1>
       <div class="game-header-actions">
-        <SoundToggle />
-        <LanguageSwitch />
+        <SettingsButton />
         <button class="btn btn-small" @click="emit('menu')">{{ t('ui.menu') }}</button>
       </div>
     </header>

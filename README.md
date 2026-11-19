@@ -54,14 +54,15 @@ src/
     engine.ts           shared AudioContext with music and effects buses
     sfx.ts              synthesized sound effects
     music.ts            generative background music (lookahead scheduler)
-    settings.ts         volumes and mute, saved to localStorage
+    settings.ts         music and effects on/off and volumes, saved to localStorage
   components/
     MenuScreen.vue      title screen
     GameScreen.vue      tabs, accusation flow, end of game
     CaseFile.vue        police report, suspects, clues
     NoteBook.vue        suspect × room and suspect × item grids
-    ProfileScreen.vue   rank, stats, last 7 daily cases, achievements, settings
-    AudioSettings.vue, SoundToggle.vue, AppModal.vue, LanguageSwitch.vue
+    ProfileScreen.vue   rank, stats, last 7 daily cases, achievements
+    SettingsButton.vue  gear button opening SettingsModal.vue (language, music, effects)
+    AppModal.vue, LanguageSwitch.vue
   utils/                string and date helpers
   style.css             design tokens and all styles (mobile first)
 ```

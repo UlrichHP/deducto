@@ -4,8 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { currentStreak, rankInfo } from '../progress/progress'
 import { progress } from '../progress/store'
 import { dayKey } from '../utils/date'
-import LanguageSwitch from './LanguageSwitch.vue'
-import SoundToggle from './SoundToggle.vue'
+import SettingsButton from './SettingsButton.vue'
 
 const emit = defineEmits<{ daily: []; random: [size: number]; profile: [] }>()
 const { t } = useI18n()
@@ -32,8 +31,7 @@ const dailyLabel = computed(() =>
         <span class="profile-meta">{{ t(`ranks.${rank}`) }}<template v-if="streak"> · {{ streak }}🔥</template></span>
       </button>
       <div class="toolbar">
-        <SoundToggle />
-        <LanguageSwitch />
+        <SettingsButton />
       </div>
     </div>
 

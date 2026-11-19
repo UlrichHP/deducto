@@ -12,7 +12,7 @@ import { isSoundName, playSound } from './sfx'
 export { audioSettings } from './settings'
 export { playSound, type SoundName } from './sfx'
 
-const musicWanted = () => !audioSettings.value.muted && audioSettings.value.music > 0
+const musicWanted = () => audioSettings.value.musicOn && audioSettings.value.music > 0
 
 function syncMusic() {
   if (!getAudio()) return

@@ -62,17 +62,18 @@
     "achievements": "Succès",
     "unlockedCount": "{n} sur {total} débloqués",
     "locked": "Verrouillé",
-    "settings": "Réglages",
     "dailyWon": "résolue",
     "dailyLost": "échouée",
     "dailyMissed": "non jouée"
   },
-  "audio": {
-    "title": "Son",
+  "settings": {
+    "title": "Réglages",
+    "open": "Ouvrir les réglages",
+    "language": "Langue",
     "music": "Musique",
     "effects": "Effets sonores",
-    "mute": "Couper le son",
-    "unmute": "Activer le son"
+    "volume": "Volume : {name}",
+    "close": "Fermer"
   },
   "ranks": {
     "rookie": "Novice",

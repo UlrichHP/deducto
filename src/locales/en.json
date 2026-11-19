@@ -62,17 +62,18 @@
     "achievements": "Achievements",
     "unlockedCount": "{n} of {total} unlocked",
     "locked": "Locked",
-    "settings": "Settings",
     "dailyWon": "solved",
     "dailyLost": "failed",
     "dailyMissed": "not played"
   },
-  "audio": {
-    "title": "Sound",
+  "settings": {
+    "title": "Settings",
+    "open": "Open settings",
+    "language": "Language",
     "music": "Music",
     "effects": "Sound effects",
-    "mute": "Mute sound",
-    "unmute": "Turn sound on"
+    "volume": "{name} volume",
+    "close": "Close"
   },
   "ranks": {
     "rookie": "Rookie",

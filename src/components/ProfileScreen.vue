@@ -5,8 +5,7 @@ import { ACHIEVEMENTS, currentStreak, rankInfo } from '../progress/progress'
 import { progress } from '../progress/store'
 import { dayKey, shiftDay } from '../utils/date'
 import { formatDuration } from '../utils/text'
-import AudioSettings from './AudioSettings.vue'
-import LanguageSwitch from './LanguageSwitch.vue'
+import SettingsButton from './SettingsButton.vue'
 
 const emit = defineEmits<{ back: [] }>()
 const { t, locale } = useI18n()
@@ -60,7 +59,7 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
   <main class="profile">
     <header class="screen-header">
       <button class="btn btn-small" @click="emit('back')">← {{ t('ui.back') }}</button>
-      <LanguageSwitch />
+      <SettingsButton />
     </header>
 
     <h1 class="screen-title">{{ t('profile.title') }}</h1>
@@ -128,8 +127,5 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
         </span>
       </li>
     </ul>
-
-    <h2 class="section-title">{{ t('profile.settings') }}</h2>
-    <AudioSettings />
   </main>
 </template>
