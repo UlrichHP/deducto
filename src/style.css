@@ -149,18 +149,34 @@ button {
   gap: 12px;
   width: 100%;
   max-width: 420px;
+  margin-bottom: auto;
 }
-.howto {
-  width: 100%;
-  max-width: 420px;
-  margin: 28px 0 auto;
+.howto-steps {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
   text-align: left;
   line-height: 1.5;
-  color: var(--muted);
 }
-.howto summary {
-  cursor: pointer;
-  color: var(--text);
+.howto-steps li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  counter-increment: step;
+}
+.howto-steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  font-weight: 700;
+  color: var(--bg);
 }
 
 /* --- Game screen ---------------------------------------------------------- */

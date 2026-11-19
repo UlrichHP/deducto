@@ -13,6 +13,7 @@ import { dayKey } from '../utils/date'
 import { formatDuration } from '../utils/text'
 import AppModal from './AppModal.vue'
 import CaseFile from './CaseFile.vue'
+import HelpButton from './HelpButton.vue'
 import SettingsButton from './SettingsButton.vue'
 import NoteBook from './NoteBook.vue'
 import { playSound } from '../audio'
@@ -88,6 +89,7 @@ function end(won: boolean) {
     <header class="game-header">
       <h1>{{ title }}</h1>
       <div class="game-header-actions">
+        <HelpButton />
         <SettingsButton />
         <button class="btn btn-small" @click="emit('menu')">{{ t('ui.menu') }}</button>
       </div>
