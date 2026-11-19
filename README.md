@@ -6,9 +6,11 @@ A murder has been committed in a manor. Each suspect was in a different room and
 
 Every case is generated from a seed and has exactly one solution. The **daily case** uses the date as its seed, so everyone gets the same puzzle on a given day.
 
-Under the clues, a **case board** lets the player drag suspect and item cards under each room (or tap a card, then a slot) to lay out their hypothesis. It never says whether a placement is right.
+Under the clues, a **case board** lets the player drag suspect and item cards under each room (or tap a card, then a slot) to lay out their hypothesis. It never says whether a placement is right, but it reads the notebook: rooms the player crossed out dim while a card is being placed, and a card that contradicts their notes gets a warning. The board never writes to the notebook.
 
-Progress is kept on the device: a profile screen shows the player's rank, stats, daily-case streak and achievements. Sound effects and dreamlike noir background music are synthesized in the browser with the Web Audio API, so there are no audio files to download.
+Each solved case gets a **score out of 1000**: up to 500 for the accusation (500, 300 or 100 depending on the number of tries), up to 300 for the case board (in proportion to correctly placed cards) and up to 200 for speed (full under a target time per board size, then decreasing to zero at four times that). An unsolved case scores 0.
+
+Progress is kept on the device: a profile screen shows the player's rank, stats (including best score and perfect boards), daily-case streak and achievements. Sound effects and dreamlike noir background music are synthesized in the browser with the Web Audio API, so there are no audio files to download.
 
 ## Stack
 
@@ -38,10 +40,11 @@ src/
   game/                 pure game logic, no Vue, no text
     data.ts             content pools as language-neutral ids
     generator.ts        case generator and solver
-    board.ts            case board placements (place, swap, clear)
+    board.ts            case board placements (place, swap, clear) and accuracy
+    notebook.ts         notebook marks and board/notebook contradictions
     rng.ts              seeded PRNG (mulberry32) and string hash
     types.ts            Case and Clue types
-    __tests__/          generator tests
+    __tests__/          generator, board and notebook tests
   locales/
     en.json, fr.json    every user-facing string
   i18n/
@@ -51,18 +54,21 @@ src/
     __tests__/          locale parity and rendering tests
   progress/
     progress.ts         stats, streak, ranks, achievements (pure functions)
+    score.ts            case score (accusation, board, time)
     store.ts            reactive progress saved to localStorage
-    __tests__/          progression tests
+    __tests__/          progression and score tests
   audio/
     index.ts            unlock on first gesture, click sounds, music on/off
     engine.ts           shared AudioContext with music and effects buses
     sfx.ts              synthesized sound effects
     music.ts            generative background music (lookahead scheduler)
     settings.ts         music and effects on/off and volumes, saved to localStorage
+  composables/
+    caseSession.ts      per-case board and notebook state, provided by GameScreen
   components/
     MenuScreen.vue      title screen
-    GameScreen.vue      tabs, accusation flow, end of game
-    CaseFile.vue        police report, suspects, clues
+    GameScreen.vue      tabs, accusation flow, end of game and score
+    CaseFile.vue        police report, suspects, clues, case board
     NoteBook.vue        suspect × room and suspect × item grids
     ProfileScreen.vue   rank, stats, last 7 daily cases, achievements
     SettingsButton.vue  gear button opening SettingsModal.vue (language, music, effects)

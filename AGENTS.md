@@ -14,6 +14,9 @@ Guidance for AI coding agents working on Deducto. See README.md for what the gam
 - **Layering**: `src/game/` is pure TypeScript with no Vue and no text. It works with language-neutral ids (`data.ts`) and indexes. Sentences are built in `src/i18n/caseText.ts`; components only call `t()` or those helpers.
 - **Determinism**: case generation must stay a pure function of `(size, seed)`, using the seeded RNG in `src/game/rng.ts`, never `Math.random`. The daily case depends on it.
 - **Puzzle validity**: every generated case must have exactly one solution and no redundant clue. A new clue type needs a `holds()` rule, a weight, phrasings `a`/`b` in every locale, and must keep the generator tests green.
+- **Board and notebook**: per-case state lives in `useCaseSession()` (provided by GameScreen). The notebook is the only source of the player's exclusions; the case board may read it to show hints but must never write to it, and neither may reveal the solution before the accusation.
+- **Score and progress**: the score formula lives in `src/progress/score.ts` and is documented in README.md and in the how-to-play modal (`ui.howToScore`); keep the three in sync. New progress fields need a default in `emptyProgress()` and must survive `normalizeProgress()` on older saves.
+- **Docs**: when a feature changes what the player sees or does, update README.md, this file and the how-to-play steps.
 - **Tests**: unit tests live in `__tests__/` folders next to the code, named `*.spec.ts`.
 - **Vue**: Composition API with `<script setup lang="ts">`. Styles live in `src/style.css` using the CSS variables in `:root`. Mobile first: touch targets of at least 44px, and nothing may scroll horizontally at 375px wide.
 - **Paths**: keep `base: './'` in `vite.config.ts`; the build must work from a file URL for Capacitor.
