@@ -67,6 +67,13 @@
     "dailyLost": "échouée",
     "dailyMissed": "non jouée"
   },
+  "audio": {
+    "title": "Son",
+    "music": "Musique",
+    "effects": "Effets sonores",
+    "mute": "Couper le son",
+    "unmute": "Activer le son"
+  },
   "ranks": {
     "rookie": "Novice",
     "constable": "Agent",

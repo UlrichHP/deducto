@@ -15,6 +15,8 @@ import AppModal from './AppModal.vue'
 import CaseFile from './CaseFile.vue'
 import LanguageSwitch from './LanguageSwitch.vue'
 import NoteBook from './NoteBook.vue'
+import SoundToggle from './SoundToggle.vue'
+import { playSound } from '../audio'
 
 const MAX_ACCUSATIONS = 3
 
@@ -62,6 +64,7 @@ function accuse(index: number) {
   if (index === props.game.culprit) return end(true)
   accusationsLeft.value--
   if (accusationsLeft.value <= 0) return end(false)
+  playSound('wrong')
   modal.value = { kind: 'wrong', suspect: index }
 }
 
@@ -76,6 +79,8 @@ function end(won: boolean) {
     daily: props.label.kind === 'daily' ? dayKey(props.label.date) : null,
   })
   modal.value = { kind: 'end', won, seconds }
+  playSound(won ? 'win' : 'lose')
+  if (unlocked.value.length) playSound('achievement', 0.8)
 }
 </script>
 
@@ -84,6 +89,7 @@ function end(won: boolean) {
     <header class="game-header">
       <h1>{{ title }}</h1>
       <div class="game-header-actions">
+        <SoundToggle />
         <LanguageSwitch />
         <button class="btn btn-small" @click="emit('menu')">{{ t('ui.menu') }}</button>
       </div>
@@ -113,7 +119,7 @@ function end(won: boolean) {
     <AppModal v-if="modal" :title="modalTitle" @close="modal = null">
       <template v-if="modal.kind === 'accuse'">
         <p class="muted">{{ t('ui.accusationsLeft', { n: accusationsLeft }, accusationsLeft) }}</p>
-        <button v-for="(id, i) in game.suspects" :key="id" class="btn" @click="accuse(i)">
+        <button v-for="(id, i) in game.suspects" :key="id" class="btn" data-sfx="none" @click="accuse(i)">
           {{ suspectName(game, i) }}
         </button>
         <button class="btn btn-ghost" @click="modal = null">{{ t('ui.cancel') }}</button>

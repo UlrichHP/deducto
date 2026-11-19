@@ -177,7 +177,7 @@ button {
 .game-header h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: clamp(1.05rem, 4.2vw, 1.4rem);
   color: var(--accent);
 }
 .tabs {
@@ -645,4 +645,62 @@ button {
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* --- Sound controls --------------------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--panel-2);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.audio-settings {
+  padding: 4px 16px 16px;
+  border-radius: 16px;
+  background: var(--panel);
+}
+.audio-settings-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.audio-settings-head .section-title {
+  margin: 12px 0;
+}
+.slider {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3ch;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+.slider input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.slider input:disabled {
+  opacity: 0.4;
+}
+.slider output {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
 }

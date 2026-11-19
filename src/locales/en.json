@@ -67,6 +67,13 @@
     "dailyLost": "failed",
     "dailyMissed": "not played"
   },
+  "audio": {
+    "title": "Sound",
+    "music": "Music",
+    "effects": "Sound effects",
+    "mute": "Mute sound",
+    "unmute": "Turn sound on"
+  },
   "ranks": {
     "rookie": "Rookie",
     "constable": "Constable",

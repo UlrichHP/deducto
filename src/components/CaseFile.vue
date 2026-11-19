@@ -36,6 +36,7 @@ function toggle(index: number) {
       <li v-for="(text, i) in clueTexts" :key="i">
         <button
           class="clue"
+          data-sfx="strike"
           :class="{ struck: struck.has(i) }"
           :aria-pressed="struck.has(i)"
           @click="toggle(i)"

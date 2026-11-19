@@ -65,6 +65,7 @@ function reset() {
             <td v-for="(label, col) in grid.columns" :key="label">
               <button
                 class="cell"
+                data-sfx="pen"
                 :data-mark="marks[grid.id][row][col]"
                 :aria-label="cellLabel(row, label, marks[grid.id][row][col])"
                 @click="cycle(grid.id, row, col)"

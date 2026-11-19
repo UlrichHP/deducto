@@ -5,6 +5,7 @@ import { ACHIEVEMENTS, currentStreak, rankInfo } from '../progress/progress'
 import { progress } from '../progress/store'
 import { dayKey, shiftDay } from '../utils/date'
 import { formatDuration } from '../utils/text'
+import AudioSettings from './AudioSettings.vue'
 import LanguageSwitch from './LanguageSwitch.vue'
 
 const emit = defineEmits<{ back: [] }>()
@@ -116,5 +117,8 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
         </span>
       </li>
     </ul>
+
+    <h2 class="section-title">{{ t('profile.settings') }}</h2>
+    <AudioSettings />
   </main>
 </template>
