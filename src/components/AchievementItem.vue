@@ -10,8 +10,8 @@ const { t } = useI18n()
 <template>
   <li class="achievement" :class="{ locked: !unlocked }">
     <span class="achievement-badge" aria-hidden="true">
-      <Star v-if="unlocked" :size="22" fill="currentColor" :stroke-width="1.5" />
-      <Lock v-else :size="16" :stroke-width="2" />
+      <Star v-if="unlocked" class="badge-star" :size="22" fill="currentColor" :stroke-width="1.5" />
+      <Lock v-else class="badge-lock" :size="16" :stroke-width="2" />
     </span>
     <span>
       <strong>{{ t(`achievements.${id}.title`) }}</strong>
