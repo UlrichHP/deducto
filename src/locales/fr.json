@@ -1,0 +1,103 @@
+{
+  "ui": {
+    "language": "Langue",
+    "tagline": "Un crime. Des suspects. Une seule vérité.",
+    "dailyCase": "Enquête du jour",
+    "newCaseWith": "Nouvelle enquête · {n} suspects",
+    "howToTitle": "Comment jouer",
+    "howToRules": "Chaque suspect se trouvait dans une pièce différente et tenait un objet différent. Le coupable est celui qui était dans la pièce du crime avec l'arme.",
+    "howToGoal": "Lisez les indices (tous fiables), remplissez le carnet et accusez. Vous avez trois accusations.",
+    "dailyTitle": "Enquête du {date}",
+    "caseTitle": "Affaire n°{number}",
+    "menu": "Menu",
+    "tabFile": "Dossier",
+    "tabNotebook": "Carnet",
+    "accuse": "Accuser",
+    "newCase": "Nouvelle enquête",
+    "policeReport": "Rapport de police",
+    "suspects": "Suspects",
+    "clues": "Indices",
+    "tapToStrike": "touchez pour barrer",
+    "notebookHint": "Touchez une case : vide → ✕ → ●. Un ● raye le reste de sa ligne et de sa colonne.",
+    "roomsGrid": "Pièces",
+    "itemsGrid": "Objets",
+    "clearNotebook": "Effacer le carnet",
+    "marks": {
+      "empty": "vide",
+      "no": "non",
+      "yes": "oui"
+    },
+    "whoIsGuilty": "Qui est coupable ?",
+    "accusationsLeft": "{n} accusation restante | {n} accusations restantes",
+    "cancel": "Annuler",
+    "falseLead": "Fausse piste",
+    "alibi": "{name} a un alibi solide. Il vous reste {n} accusation. | {name} a un alibi solide. Il vous reste {n} accusations.",
+    "resume": "Reprendre l'enquête",
+    "solved": "Affaire résolue !",
+    "closed": "Affaire classée",
+    "won": "C'était bien {name}, {role}. Résolue en {duration}.",
+    "lost": "Plus d'accusation possible. Le coupable était {name}, {role}.",
+    "truth": "La vérité",
+    "reviewFile": "Revoir le dossier"
+  },
+  "roles": {
+    "adele": "la nièce ambitieuse",
+    "basile": "le majordome taciturne",
+    "capucine": "la cantatrice ruinée",
+    "desire": "le notaire nerveux",
+    "eugenie": "la botaniste distraite",
+    "firmin": "le cousin joueur",
+    "gaspard": "le médecin de famille"
+  },
+  "rooms": {
+    "observatory": { "label": "Observatoire", "phrase": "l'observatoire" },
+    "greenhouse": { "label": "Serre", "phrase": "la serre" },
+    "wineCellar": { "label": "Cave à vin", "phrase": "la cave à vin" },
+    "smokingRoom": { "label": "Fumoir", "phrase": "le fumoir" },
+    "gallery": { "label": "Galerie", "phrase": "la galerie" },
+    "chapel": { "label": "Chapelle", "phrase": "la chapelle" },
+    "library": { "label": "Bibliothèque", "phrase": "la bibliothèque" }
+  },
+  "items": {
+    "poker": { "label": "Tisonnier", "phrase": "le tisonnier" },
+    "arsenic": { "label": "Arsenic", "phrase": "la fiole d'arsenic" },
+    "letterOpener": { "label": "Coupe-papier", "phrase": "le coupe-papier" },
+    "scarf": { "label": "Foulard", "phrase": "le foulard de soie" },
+    "statuette": { "label": "Statuette", "phrase": "la statuette de bronze" },
+    "pistol": { "label": "Pistolet", "phrase": "le pistolet de duel" },
+    "cord": { "label": "Cordelette", "phrase": "la cordelette" }
+  },
+  "victims": {
+    "count": { "name": "le comte de Valmorel", "gender": "m" },
+    "baroness": { "name": "la baronne d'Aubrac", "gender": "f" },
+    "professor": { "name": "le professeur Lindqvist", "gender": "m" },
+    "general": { "name": "la générale Ostrova", "gender": "f" }
+  },
+  "report": {
+    "m": "{victim} a été retrouvé sans vie dans {room}, tué avec {weapon}.",
+    "f": "{victim} a été retrouvée sans vie dans {room}, tuée avec {weapon}."
+  },
+  "rule": "Chaque suspect se trouvait dans une pièce différente et tenait un objet différent. Le coupable est la personne qui était dans {room} avec {weapon}.",
+  "clues": {
+    "notRoom": {
+      "a": "{who} n'était pas dans {room}.",
+      "b": "Plusieurs témoins l'assurent : {who} n'a pas mis les pieds dans {room}."
+    },
+    "notItem": {
+      "a": "{who} n'avait pas {item}.",
+      "b": "{who} n'a jamais touché {item}."
+    },
+    "roomItem": {
+      "a": "{item} se trouvait dans {room}.",
+      "b": "Celui ou celle qui était dans {room} tenait {item}."
+    },
+    "notRoomItem": {
+      "a": "{item} ne se trouvait pas dans {room}.",
+      "b": "La personne présente dans {room} n'avait pas {item}."
+    },
+    "eitherRoom": {
+      "a": "{who} était soit dans {room}, soit dans {room2}.",
+      "b": "Une chose est sûre : {who} était dans {room} ou dans {room2}."
+    }
+  }
+}

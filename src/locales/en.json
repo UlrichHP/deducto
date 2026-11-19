@@ -1,0 +1,103 @@
+{
+  "ui": {
+    "language": "Language",
+    "tagline": "One crime. Several suspects. A single truth.",
+    "dailyCase": "Daily case",
+    "newCaseWith": "New case · {n} suspects",
+    "howToTitle": "How to play",
+    "howToRules": "Each suspect was in a different room and held a different item. The culprit is whoever was in the crime room with the weapon.",
+    "howToGoal": "Read the clues (all reliable), fill in the notebook and make your accusation. You have three accusations.",
+    "dailyTitle": "Case of {date}",
+    "caseTitle": "Case #{number}",
+    "menu": "Menu",
+    "tabFile": "Case file",
+    "tabNotebook": "Notebook",
+    "accuse": "Accuse",
+    "newCase": "New case",
+    "policeReport": "Police report",
+    "suspects": "Suspects",
+    "clues": "Clues",
+    "tapToStrike": "tap to cross out",
+    "notebookHint": "Tap a cell: empty → ✕ → ●. A ● crosses out the rest of its row and column.",
+    "roomsGrid": "Rooms",
+    "itemsGrid": "Items",
+    "clearNotebook": "Clear notebook",
+    "marks": {
+      "empty": "empty",
+      "no": "no",
+      "yes": "yes"
+    },
+    "whoIsGuilty": "Who is guilty?",
+    "accusationsLeft": "{n} accusation left | {n} accusations left",
+    "cancel": "Cancel",
+    "falseLead": "False lead",
+    "alibi": "{name} has a solid alibi. You have {n} accusation left. | {name} has a solid alibi. You have {n} accusations left.",
+    "resume": "Back to the case",
+    "solved": "Case solved!",
+    "closed": "Case closed",
+    "won": "It was indeed {name}, {role}. Solved in {duration}.",
+    "lost": "No accusations left. The culprit was {name}, {role}.",
+    "truth": "The truth",
+    "reviewFile": "Review the case"
+  },
+  "roles": {
+    "adele": "the ambitious niece",
+    "basile": "the taciturn butler",
+    "capucine": "the penniless opera singer",
+    "desire": "the nervous notary",
+    "eugenie": "the absent-minded botanist",
+    "firmin": "the gambling cousin",
+    "gaspard": "the family doctor"
+  },
+  "rooms": {
+    "observatory": { "label": "Observatory", "phrase": "the observatory" },
+    "greenhouse": { "label": "Greenhouse", "phrase": "the greenhouse" },
+    "wineCellar": { "label": "Wine cellar", "phrase": "the wine cellar" },
+    "smokingRoom": { "label": "Smoking room", "phrase": "the smoking room" },
+    "gallery": { "label": "Gallery", "phrase": "the gallery" },
+    "chapel": { "label": "Chapel", "phrase": "the chapel" },
+    "library": { "label": "Library", "phrase": "the library" }
+  },
+  "items": {
+    "poker": { "label": "Poker", "phrase": "the fire poker" },
+    "arsenic": { "label": "Arsenic", "phrase": "the vial of arsenic" },
+    "letterOpener": { "label": "Letter opener", "phrase": "the letter opener" },
+    "scarf": { "label": "Scarf", "phrase": "the silk scarf" },
+    "statuette": { "label": "Statuette", "phrase": "the bronze statuette" },
+    "pistol": { "label": "Pistol", "phrase": "the duelling pistol" },
+    "cord": { "label": "Cord", "phrase": "the cord" }
+  },
+  "victims": {
+    "count": { "name": "Count Valmorel", "gender": "m" },
+    "baroness": { "name": "the Baroness of Aubrac", "gender": "f" },
+    "professor": { "name": "Professor Lindqvist", "gender": "m" },
+    "general": { "name": "General Ostrova", "gender": "f" }
+  },
+  "report": {
+    "m": "{victim} was found dead in {room}, killed with {weapon}.",
+    "f": "{victim} was found dead in {room}, killed with {weapon}."
+  },
+  "rule": "Each suspect was in a different room and held a different item. The culprit is whoever was in {room} with {weapon}.",
+  "clues": {
+    "notRoom": {
+      "a": "{who} was not in {room}.",
+      "b": "Several witnesses confirm that {who} never set foot in {room}."
+    },
+    "notItem": {
+      "a": "{who} did not have {item}.",
+      "b": "{who} never touched {item}."
+    },
+    "roomItem": {
+      "a": "{item} was in {room}.",
+      "b": "Whoever was in {room} was holding {item}."
+    },
+    "notRoomItem": {
+      "a": "{item} was not in {room}.",
+      "b": "The person in {room} did not have {item}."
+    },
+    "eitherRoom": {
+      "a": "{who} was either in {room} or in {room2}.",
+      "b": "One thing is certain: {who} was in {room} or in {room2}."
+    }
+  }
+}

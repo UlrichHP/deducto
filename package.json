@@ -1,0 +1,28 @@
+{
+  "name": "deducto",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Procedural deduction game: one crime, several suspects, a single truth.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.5.45",
+    "vue-i18n": "^11.4.22"
+  },
+  "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^11.2.8",
+    "@vitejs/plugin-vue": "^6.0.11",
+    "@vue/tsconfig": "^0.9.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.8",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.1",
+    "vue-tsc": "^3.3.14"
+  }
+}

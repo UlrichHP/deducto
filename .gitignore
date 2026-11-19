@@ -1,0 +1,22 @@
+node_modules/
+dist/
+dev-dist/
+*.local
+.vite/
+
+# Capacitor native projects (generated)
+/android/
+/ios/
+
+# Logs
+*.log
+
+# Local Claude app settings (dev server preview config)
+.claude/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
