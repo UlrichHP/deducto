@@ -14,6 +14,7 @@ Progress is kept on the device: a profile screen shows the player's rank, stats,
 - [vue-i18n](https://vue-i18n.intlify.dev/) with JSON locale files, precompiled by `@intlify/unplugin-vue-i18n`
 - [vite-plugin-pwa](https://vite-pwa-org.netlify.app/): installable and playable offline
 - [Vitest](https://vitest.dev/) for unit tests
+- [Lucide](https://lucide.dev/) icons; self-hosted [Fontsource](https://fontsource.org/) fonts: Limelight, Special Elite, Inter
 - Android packaging planned with [Capacitor](https://capacitorjs.com/) (the build already uses relative paths for it)
 
 ## Getting started

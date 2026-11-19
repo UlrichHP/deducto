@@ -1,0 +1,33 @@
+/*
+ * Self-hosted fonts (bundled, so they work offline and send no request to a
+ * third party). Latin subset only: covers English and French, including œ and €.
+ * Glyphs outside it (arrows, symbols) fall back to the next font in the stack.
+ *
+ * - Limelight (OFL): art deco display face, logo and titles
+ * - Special Elite (Apache 2.0): worn typewriter, police report and clues
+ * - Inter (OFL): variable sans-serif for the interface
+ */
+
+@font-face {
+  font-family: 'Limelight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/limelight/files/limelight-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Special Elite';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+}

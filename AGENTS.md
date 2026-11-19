@@ -18,6 +18,8 @@ Guidance for AI coding agents working on Deducto. See README.md for what the gam
 - **Vue**: Composition API with `<script setup lang="ts">`. Styles live in `src/style.css` using the CSS variables in `:root`. Mobile first: touch targets of at least 44px, and nothing may scroll horizontally at 375px wide.
 - **Paths**: keep `base: './'` in `vite.config.ts`; the build must work from a file URL for Capacitor.
 - **Storage**: progress and settings live in `localStorage`; every read and write is wrapped in try/catch and the app must work when storage is unavailable. Stored data goes through a normalize function so older saves still load.
-- **Icons**: hand-drawn inline SVG in the components, no icon library. Use a 24×24 `viewBox`, `currentColor` for fill and stroke, and `aria-hidden="true"` (the button carries the label).
+- **Icons**: [Lucide](https://lucide.dev/) via `lucide-vue-next` (ISC), imported per icon. Mark them `aria-hidden="true"`; the button carries the label.
+- **Fonts**: self-hosted in `src/fonts.css` (Latin subset, no third-party requests). Use the CSS variables: `--font-display` (Limelight: logo and titles, weight 400 only), `--font-type` (Special Elite: police report and clues), `--font-ui` (Inter: everything else).
+- **Corners**: `corner-shape: squircle` is applied inside `@supports` at the end of `style.css`; add new rounded components to that list.
 - **Audio**: everything is synthesized with the Web Audio API (no audio files). Nothing may play before the first user gesture. Use `data-sfx` on elements rather than calling `playSound()` in click handlers.
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `style:`, `perf:`. Imperative mood, one logical change per commit.

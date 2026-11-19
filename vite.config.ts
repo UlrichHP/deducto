@@ -16,6 +16,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['icon.svg'],
+      // Precache fonts too, so the game looks the same offline.
+      workbox: { globPatterns: ['**/*.{js,css,html,svg,woff2}'] },
       manifest: {
         name: 'Deducto',
         short_name: 'Deducto',

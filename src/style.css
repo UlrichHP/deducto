@@ -10,10 +10,12 @@
   --no-text: #f0c4c9;
   --yes: #3f9a62;
   --radius: 12px;
-  --serif: Georgia, 'Times New Roman', serif;
+  --font-display: 'Limelight', Georgia, serif;
+  --font-type: 'Special Elite', 'Courier New', monospace;
+  --font-ui: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   color-scheme: dark;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-ui);
   font-size: 16px;
   color: var(--text);
   background: var(--bg);
@@ -132,7 +134,7 @@ button {
 }
 .logo {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--font-display);
   font-size: clamp(3rem, 15vw, 5.5rem);
   letter-spacing: 0.08em;
   color: var(--accent);
@@ -176,7 +178,7 @@ button {
 }
 .game-header h1 {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--font-display);
   font-size: clamp(1.05rem, 4.2vw, 1.4rem);
   color: var(--accent);
 }
@@ -374,7 +376,7 @@ button {
 }
 .modal h2 {
   margin: 0 0 4px;
-  font-family: var(--serif);
+  font-family: var(--font-display);
   font-size: 1.6rem;
   color: var(--accent);
 }
@@ -495,7 +497,7 @@ button {
 }
 .screen-title {
   margin: 20px 0 16px;
-  font-family: var(--serif);
+  font-family: var(--font-display);
   font-size: 2rem;
   color: var(--accent);
 }
@@ -515,7 +517,7 @@ button {
 }
 .rank-name {
   margin: 4px 0 14px !important;
-  font-family: var(--serif);
+  font-family: var(--font-display);
   font-size: 1.7rem;
 }
 .progress-bar {
@@ -626,14 +628,6 @@ button {
   background: var(--accent);
   font-size: 0;
   color: var(--bg);
-}
-.achievement-badge svg {
-  width: 24px;
-  height: 24px;
-}
-.achievement.locked .achievement-badge svg {
-  width: 16px;
-  height: 16px;
 }
 .achievement.locked {
   opacity: 0.5;
@@ -752,4 +746,67 @@ button {
   text-align: right;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
+}
+
+/* --- Typography --------------------------------------------------------------- */
+
+/* Limelight has a single weight: avoid synthetic bold on headings. */
+.logo,
+.screen-title,
+.game-header h1,
+.modal h2,
+.rank-name {
+  font-weight: 400;
+}
+
+/* The case file reads like a typed police report. */
+.case-file p,
+.clue {
+  font-family: var(--font-type);
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+}
+
+/* --- Squircle corners (progressive enhancement) ----------------------------- */
+
+/*
+ * Browsers that support corner-shape draw smooth "superellipse" corners.
+ * A squircle looks less rounded than a circular arc at the same radius,
+ * so radii are increased to keep a similar visual weight.
+ * Circles (badges, dots, switches) keep their round shape.
+ */
+@supports (corner-shape: squircle) {
+  .btn,
+  .icon-btn,
+  .tabs,
+  .tabs button,
+  .lang-switch,
+  .lang-switch button,
+  .clue,
+  .cell,
+  .modal,
+  .rank-card,
+  .stat,
+  .achievement,
+  .setting-block,
+  .settings > .setting-row {
+    corner-shape: squircle;
+  }
+  :root {
+    --radius: 22px;
+  }
+  .icon-btn,
+  .lang-switch,
+  .tabs button,
+  .clue,
+  .cell {
+    border-radius: 16px;
+  }
+  .lang-switch button {
+    border-radius: 14px;
+  }
+  .modal,
+  .rank-card {
+    border-radius: 30px;
+  }
 }

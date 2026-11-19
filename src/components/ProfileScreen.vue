@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Lock, Star } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ACHIEVEMENTS, currentStreak, rankInfo } from '../progress/progress'
@@ -109,16 +110,8 @@ const unlockedCount = computed(() => achievements.value.filter((a) => a.unlocked
     <ul class="achievements">
       <li v-for="a in achievements" :key="a.id" class="achievement" :class="{ locked: !a.unlocked }">
         <span class="achievement-badge" aria-hidden="true">
-          <svg v-if="a.unlocked" viewBox="0 0 24 24">
-            <path
-              d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"
-              fill="currentColor"
-            />
-          </svg>
-          <svg v-else viewBox="0 0 24 24">
-            <rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor" />
-            <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2.2" />
-          </svg>
+          <Star v-if="a.unlocked" :size="22" fill="currentColor" :stroke-width="1.5" />
+          <Lock v-else :size="16" :stroke-width="2" />
         </span>
         <span>
           <strong>{{ a.title }}</strong>
